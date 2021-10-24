@@ -1,5 +1,6 @@
 package loyalty;
 
+import loyalty.workflows.BonusEvent;
 import loyalty.workflows.Loyalty;
 import io.infinitic.client.Deferred;
 import io.infinitic.client.InfiniticClient;
@@ -23,17 +24,24 @@ public class Client {
             // get a reference to this workflow
             Loyalty w = client.getWorkflowById(Loyalty.class, deferred.getId());
 
-            Thread.sleep(10000);
+            Thread.sleep(5000);
             System.out.println("Points: " + w.getPoints());
 
-            Thread.sleep(10000);
-            client.dispatch(w::bonus, 100);
-            System.out.println("bonus +100!");
+            Thread.sleep(5000);
+            client.dispatchVoid(w::addBonus, BonusEvent.REGISTRATION_COMPLETED);
+            System.out.println("bonus!");
 
-            Thread.sleep(10000);
+            Thread.sleep(5000);
             System.out.println("Points: " + w.getPoints());
 
-            Thread.sleep(10000);
+            Thread.sleep(5000);
+            client.dispatchVoid(w::addBonus, BonusEvent.ORDER_COMPLETED);
+            System.out.println("bonus!");
+
+            Thread.sleep(5000);
+            System.out.println("Points: " + w.getPoints());
+
+            Thread.sleep(5000);
             client.cancel(w);
             System.out.println("Workflow canceled");
         }

@@ -1,40 +1,53 @@
 package loyalty.workflows;
 
-import io.infinitic.workflows.Channel;
-import io.infinitic.workflows.Deferred;
 import io.infinitic.workflows.Workflow;
 
-import java.time.Instant;
+import java.time.*;
 
 public class LoyaltyImpl extends Workflow implements Loyalty {
+
+//    private final Integer weekInSeconds = 3600*24*7;
+    private final Integer weekInSeconds = 4;
+
     private Integer points = 0;
+
+    @Override
+    public Integer getPoints() {
+        return points;
+    }
 
     @Override
     public void start() {
         Instant now = inline(Instant::now);
 
-        int s = 0;
-        while (points < 1000) {
+        int w = 0;
 
-            inlineVoid(() -> System.out.println(context.getId() + " " + points + " points"));
+        while (w < 56) {
+            inlineVoid(() -> System.out.println("points = " + points));
 
-            // every 5 seconds, a new point is added
-            s += 5;
-            timer(now.plusSeconds(s)).await();
-
+            // every week, a new point is added
+            w++;
+            timer(now.plusSeconds(w * weekInSeconds)).await();
             points++;
         }
     }
 
     @Override
-    public Integer bonus(Integer value) {
-        points += value;
+    public void addBonus(BonusEvent event) {
+        inlineVoid(() -> System.out.println("received " + event));
 
-        return points;
-    }
+        switch (event) {
+            case REGISTRATION_COMPLETED:
+                points+= 100;
+                break;
 
-    @Override
-    public Integer getPoints() {
-        return points;
+            case FORM_COMPLETED:
+                points+= 200;
+                break;
+
+            case ORDER_COMPLETED:
+                points+= 500;
+                break;
+        }
     }
 }

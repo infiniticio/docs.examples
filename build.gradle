@@ -4,11 +4,10 @@ plugins {
 
 application {
     // Define the main class for the application.
-    mainClassName = 'hello.world.App'
+    mainClassName = 'loyalty.App'
 }
 
 repositories {
-    mavenLocal()
     mavenCentral()
     maven { url = "https://jitpack.io" }
 }
@@ -19,9 +18,9 @@ dependencies {
     // add a logger
     implementation "org.slf4j:slf4j-simple:1.7.32"
     // infinitic framework
-    implementation "io.infinitic:infinitic-factory:0.8.0-SNAPSHOT"
+    implementation "io.infinitic:infinitic-factory:0.8.0"
     // infinitic dashboard
-    implementation "io.infinitic:infinitic-dashboard:0.8.0-SNAPSHOT"
+    implementation "io.infinitic:infinitic-dashboard:0.8.0"
 }
 
 java {
@@ -29,15 +28,15 @@ java {
     targetCompatibility = JavaVersion.VERSION_1_8
 }
 
-task startWorkflow(type: JavaExec) {
+task dispatch(type: JavaExec) {
     group = "infinitic"
-    main = "hello.world.Client"
+    main = "loyalty.Client"
     classpath = sourceSets.main.runtimeClasspath
 }
 
 task dashboard(type: JavaExec) {
     group = "infinitic"
-    main = "hello.world.Dashboard"
+    main = "loyalty.Dashboard"
     classpath = sourceSets["main"].runtimeClasspath
     args("infinitic.yml")
 }
