@@ -9,9 +9,9 @@ public class Dashboard {
         if (args.length > 0) {
             file = args[0];
         } else {
-            file = "infinitic.yml";
+            file = "/infinitic.yml";
         }
         // start server
-        DashboardServer.fromConfigFile(file).start();
+        DashboardServer.fromConfigResource(file).start();
     }
 }

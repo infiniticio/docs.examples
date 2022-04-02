@@ -2,6 +2,12 @@
 pulsar:
   tenant: infinitic
   namespace: dev
+#  brokerServiceUrl:
+#  webServiceUrl:
+#  authentication:
+#    issuerUrl:
+#    privateKey:
+#    audience:
 
 # Workers settings
 stateStorage: redis

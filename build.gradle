@@ -13,19 +13,12 @@ repositories {
 }
 
 dependencies {
-    // to be removed with Pulsar 1.8 https://github.com/apache/pulsar/issues/9045
-    implementation("org.apache.avro:avro") { version { strictly "1.9.+" } }
     // add a logger
-    implementation "org.slf4j:slf4j-simple:1.7.32"
+    implementation 'org.slf4j:slf4j-simple:1.7.36'
     // infinitic framework
-    implementation "io.infinitic:infinitic-factory:0.8.0"
+    implementation "io.infinitic:infinitic-factory:0.9.3"
     // infinitic dashboard
-    implementation "io.infinitic:infinitic-dashboard:0.8.0"
-}
-
-java {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+    implementation "io.infinitic:infinitic-dashboard:0.9.3"
 }
 
 task dispatch(type: JavaExec) {
@@ -38,5 +31,4 @@ task dashboard(type: JavaExec) {
     group = "infinitic"
     main = "loyalty.Dashboard"
     classpath = sourceSets["main"].runtimeClasspath
-    args("infinitic.yml")
 }

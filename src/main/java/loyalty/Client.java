@@ -1,25 +1,25 @@
 package loyalty;
 
+import io.infinitic.clients.Deferred;
+import io.infinitic.clients.InfiniticClient;
 import loyalty.workflows.BonusEvent;
 import loyalty.workflows.Loyalty;
-import io.infinitic.client.Deferred;
-import io.infinitic.client.InfiniticClient;
 import io.infinitic.factory.InfiniticClientFactory;
 
+import java.io.IOException;
 import java.util.HashSet;
-import java.util.Set;
 
 public class Client {
-    public static void main(String[] args) throws InterruptedException {
-        try(InfiniticClient client = InfiniticClientFactory.fromConfigFile("infinitic.yml")) {
+    public static void main(String[] args) throws InterruptedException, IOException {
+        try(InfiniticClient client = InfiniticClientFactory.fromConfigResource("/infinitic.yml")) {
             // create a stub from HelloWorld interface
-            Set tags = new HashSet();
+            HashSet<String> tags = new HashSet<>();
             tags.add("<userId>");
             Loyalty loyalty = client.newWorkflow(Loyalty.class, tags);
 
             // asynchronous dispatch of a workflow
             Deferred<Void> deferred = client.dispatchVoid(loyalty::start);
-            System.out.println("workflow " + Loyalty.class.getName() + " " + deferred.getId() + " dispatched!");
+            System.out.println("Workflow " + deferred.getId() + " dispatched!");
 
             // get a reference to this workflow
             Loyalty w = client.getWorkflowById(Loyalty.class, deferred.getId());
