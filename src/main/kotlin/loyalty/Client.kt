@@ -1,17 +1,17 @@
 package loyalty
 
-import io.infinitic.factory.InfiniticClientFactory.fromConfigFile
+import io.infinitic.factory.InfiniticClientFactory.fromConfigResource
 import loyalty.workflows.BonusEvent
 import loyalty.workflows.Loyalty
 
 fun main() {
-    fromConfigFile("infinitic.yml").use { client ->
+    fromConfigResource("/infinitic.yml").use { client ->
         // create a stub from HelloWorld interface
         val loyalty = client.newWorkflow(Loyalty::class.java, tags = setOf("<userId>"))
 
         // asynchronous dispatch of a workflow
         val deferred = client.dispatch(loyalty::start)
-        println("workflow " + Loyalty::class.java.name + " " + deferred.id + " dispatched!")
+        println("Workflow " + Loyalty::class.java.name + " " + deferred.id + " dispatched!")
 
         // get a reference to this workflow
         val w = client.getWorkflowById(Loyalty::class.java, deferred.id)
