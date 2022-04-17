@@ -1,0 +1,34 @@
+plugins {
+    id 'application'
+}
+
+application {
+    // Define the main class for the application.
+    mainClassName = 'loyalty.App'
+}
+
+repositories {
+    mavenCentral()
+    maven { url = "https://jitpack.io" }
+}
+
+dependencies {
+    // add a logger
+    implementation 'org.slf4j:slf4j-simple:1.7.36'
+    // infinitic framework
+    implementation "io.infinitic:infinitic-factory:0.9.4"
+    // infinitic dashboard
+    implementation "io.infinitic:infinitic-dashboard:0.9.4"
+}
+
+task dispatch(type: JavaExec) {
+    group = "infinitic"
+    main = "loyalty.Client"
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+task dashboard(type: JavaExec) {
+    group = "infinitic"
+    main = "loyalty.Dashboard"
+    classpath = sourceSets["main"].runtimeClasspath
+}

@@ -1,0 +1,41 @@
+# Common settings
+pulsar:
+  tenant: infinitic
+  namespace: dev
+#  brokerServiceUrl:
+#  webServiceUrl:
+#  authentication:
+#    issuerUrl:
+#    privateKey:
+#    audience:
+
+# Workers settings
+stateStorage: redis
+
+#transport: inMemory
+
+redis:
+  host: localhost
+  port: 6379
+  user:
+  password:
+  database: 0
+
+workflows:
+  - name: loyalty.workflows.LoyaltyWorkflow
+    class: loyalty.workflows.LoyaltyWorkflowImpl
+    concurrency: 10
+
+tasks:
+  - name: loyalty.tasks.loyalpi.LoyalpiService
+    class: loyalty.tasks.loyalpi.LoyalpiServiceImpl
+    concurrency: 10
+  - name: loyalty.tasks.rewards.RewardsService
+    class: loyalty.tasks.rewards.RewardsServiceImpl
+    concurrency: 10
+  - name: loyalty.tasks.rules.RulesService
+    class: loyalty.tasks.rules.RulesServiceImpl
+    concurrency: 10
+
+# Dashboard Settings
+port: 9080
