@@ -38,6 +38,7 @@ public class LoyaltyWorkflowImpl extends Workflow implements LoyaltyWorkflow {
         // wait for next signal
         Event event = deferredEvent.await();
 
+
         while (event != USER_TERMINATED) {
             // Call Microservice 1 by doing an HTTP call
             RulesResult rulesOutcomes = rulesService.flux(event, userId);

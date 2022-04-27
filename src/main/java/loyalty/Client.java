@@ -8,19 +8,19 @@ import io.infinitic.factory.InfiniticClientFactory;
 
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 public class Client {
     public static void main(String[] args) throws InterruptedException, IOException {
         try(InfiniticClient client = InfiniticClientFactory.fromConfigResource("/infinitic.yml")) {
 
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < 1; i++) {
                 String userId = UUID.randomUUID().toString();
-                String tagId = "userId:" + userId;
+                String tagId = "customId:userId:" + userId;
+                Set<String> tags = Set.of(tagId);
 
                 // create a stub from HelloWorld interface
-                HashSet<String> tags = new HashSet<>();
-                tags.add(tagId);
                 LoyaltyWorkflow loyalty = client.newWorkflow(LoyaltyWorkflow.class, tags);
 
                 // asynchronous dispatch of a workflow
