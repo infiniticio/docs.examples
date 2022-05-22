@@ -10,16 +10,21 @@ pulsar:
 #    audience:
 
 # Workers settings
-stateStorage: redis
+stateStorage: mysql
 
-#transport: inMemory
+#mysql:
+#  host: localhost
+#  port: 3306
+#  user: root
+#  password:
+#  database: infinitic
 
-redis:
-  host: localhost
-  port: 6379
-  user:
-  password:
-  database: 0
+#redis:
+#  host: localhost
+#  port: 6379
+#  user:
+#  password:
+#  database: 0
 
 workflows:
   - name: loyalty.workflows.LoyaltyWorkflow
