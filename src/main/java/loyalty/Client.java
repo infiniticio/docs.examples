@@ -31,7 +31,7 @@ public class Client {
 
                 Event event;
 
-                for (int j = 0; j < 20; j++) {
+                for (int j = 0; j < 500; j++) {
                     event = Event.ORDER_COMPLETED;
                     client.dispatchVoid(w::receive, event);
                     System.out.println("Event " + event + " dispatched!");
