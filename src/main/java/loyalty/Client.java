@@ -7,7 +7,6 @@ import loyalty.workflows.LoyaltyWorkflow;
 import io.infinitic.factory.InfiniticClientFactory;
 
 import java.io.IOException;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -32,22 +31,25 @@ public class Client {
 
                 Event event;
 
-                event = Event.ORDER_COMPLETED;
-                w.getEventChannel().send(event);
-                System.out.println("Event " + event + " dispatched!");
+                for (int j = 0; j < 20; j++) {
+                    event = Event.ORDER_COMPLETED;
+                    client.dispatchVoid(w::receive, event);
+                    System.out.println("Event " + event + " dispatched!");
 
-                Thread.sleep(200);
+                    event = Event.REGISTRATION_COMPLETED;
+                    client.dispatchVoid(w::receive, event);
+                    System.out.println("Event " + event + " dispatched!");
 
-                event = Event.REGISTRATION_COMPLETED;
-                w.getEventChannel().send(event);
-                System.out.println("Event " + event + " dispatched!");
+                    event = Event.FORM_COMPLETED;
+                    client.dispatchVoid(w::receive, event);
+                    System.out.println("Event " + event + " dispatched!");
 
-                event = Event.FORM_COMPLETED;
-                w.getEventChannel().send(event);
-                System.out.println("Event " + event + " dispatched!");
+                    Thread.sleep(2000);
+                    System.out.println("Loop " + j + " done");
+                }
 
                 event = Event.USER_TERMINATED;
-                w.getEventChannel().send(event);
+                client.dispatchVoid(w::receive, event);
                 System.out.println("Event " + event + " dispatched!");
             }
         }

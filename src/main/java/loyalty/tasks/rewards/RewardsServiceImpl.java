@@ -11,7 +11,7 @@ public class RewardsServiceImpl extends Task implements RewardsService {
         System.out.println("RewardsService: userId=" + userId + " event=" + event + " rules=" + rules);
 
         try {
-            Thread.sleep(1000);
+            Thread.sleep(100);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

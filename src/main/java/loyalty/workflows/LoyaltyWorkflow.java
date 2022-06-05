@@ -3,7 +3,9 @@ package loyalty.workflows;
 import io.infinitic.workflows.SendChannel;
 
 public interface LoyaltyWorkflow {
-    SendChannel<Event> getEventChannel();
+    SendChannel<Boolean> getTerminationChannel();
 
     void start(String userId);
+
+    void receive(Event e);
 }
