@@ -1,9 +1,9 @@
 package loyalty
 
-import io.infinitic.factory.InfiniticWorkerFactory
+import io.infinitic.workers.InfiniticWorker
 
 fun main() {
-    InfiniticWorkerFactory.fromConfigResource("/infinitic.yml").use { worker ->
+    InfiniticWorker.fromConfigResource("/infinitic.yml").use { worker ->
         worker.start()
     }
 }

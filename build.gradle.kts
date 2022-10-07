@@ -10,15 +10,18 @@ repositories {
     mavenCentral()
     // needed for the dashboard
     maven("https://jitpack.io")
+    mavenLocal()
 }
 
 dependencies {
     // add a logger
-    implementation("org.slf4j:slf4j-simple:1.7.36")
-    // infinitic framework
-    implementation("io.infinitic:infinitic-factory:0.9.8")
+    implementation("org.slf4j:slf4j-simple:2.0.3")
+    // infinitic client
+    implementation("io.infinitic:infinitic-client:0.10.0")
+    // infinitic worker
+    implementation("io.infinitic:infinitic-worker:0.10.0")
     // infinitic dashboard
-    implementation("io.infinitic:infinitic-dashboard:0.9.8")
+    implementation("io.infinitic:infinitic-dashboard:0.10.0")
 }
 
 application {

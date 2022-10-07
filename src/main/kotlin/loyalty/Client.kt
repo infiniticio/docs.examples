@@ -1,11 +1,11 @@
 package loyalty
 
-import io.infinitic.factory.InfiniticClientFactory.fromConfigResource
+import io.infinitic.clients.InfiniticClient
 import loyalty.workflows.BonusEvent
 import loyalty.workflows.Loyalty
 
 fun main() {
-    fromConfigResource("/infinitic.yml").use { client ->
+    InfiniticClient.fromConfigResource("/infinitic.yml").use { client ->
         // create a stub from HelloWorld interface
         val loyalty = client.newWorkflow(Loyalty::class.java, tags = setOf("<userId>"))
 
