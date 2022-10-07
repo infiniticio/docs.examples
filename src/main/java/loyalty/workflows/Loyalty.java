@@ -1,7 +1,8 @@
 package loyalty.workflows;
 
-import io.infinitic.workflows.SendChannel;
+import io.infinitic.annotations.Name;
 
+@Name(name = "Loyalty")
 public interface Loyalty {
     Integer getPoints();
 

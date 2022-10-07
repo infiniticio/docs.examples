@@ -4,14 +4,13 @@ import io.infinitic.clients.Deferred;
 import io.infinitic.clients.InfiniticClient;
 import loyalty.workflows.BonusEvent;
 import loyalty.workflows.Loyalty;
-import io.infinitic.factory.InfiniticClientFactory;
 
 import java.io.IOException;
 import java.util.HashSet;
 
 public class Client {
     public static void main(String[] args) throws InterruptedException, IOException {
-        try(InfiniticClient client = InfiniticClientFactory.fromConfigResource("/infinitic.yml")) {
+        try(InfiniticClient client = InfiniticClient.fromConfigResource("/infinitic.yml")) {
             // create a stub from HelloWorld interface
             HashSet<String> tags = new HashSet<>();
             tags.add("<userId>");

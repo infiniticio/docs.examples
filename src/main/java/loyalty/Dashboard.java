@@ -1,6 +1,6 @@
 package loyalty;
 
-import io.infinitic.dashboard.DashboardServer;
+import io.infinitic.dashboard.InfiniticDashboard;
 
 public class Dashboard {
     public static void main(String[] args) {
@@ -12,6 +12,6 @@ public class Dashboard {
             file = "/infinitic.yml";
         }
         // start server
-        DashboardServer.fromConfigResource(file).start();
+        InfiniticDashboard.fromConfigResource(file).start();
     }
 }
