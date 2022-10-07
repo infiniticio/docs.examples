@@ -2,43 +2,43 @@
 pulsar:
   tenant: infinitic
   namespace: dev
-#  brokerServiceUrl:
-#  webServiceUrl:
-#  authentication:
-#    issuerUrl:
-#    privateKey:
-#    audience:
+  brokerServiceUrl: pulsar+ssl://dev.infinitic.snio.cloud:6651
+  webServiceUrl: https://dev.infinitic.snio.cloud
+  authentication:
+    issuerUrl: https://auth.streamnative.cloud
+    privateKey: file:///Users/gilles/.sn/infinitic-admin.json
+    audience: urn:sn:pulsar:infinitic:test
 
-# Workers settings
-stateStorage: mysql
+# Storage settings
+storage:
+  mysql:
+  #  host: localhost
+  #  port: 3306
+  #  user: root
+  #  password:
+  #  database: infinitic
+  #redis:
+  #  host: localhost
+  #  port: 6379
+  #  user:
+  #  password:
+  #  database: 0
 
-#mysql:
-#  host: localhost
-#  port: 3306
-#  user: root
-#  password:
-#  database: infinitic
-
-#redis:
-#  host: localhost
-#  port: 6379
-#  user:
-#  password:
-#  database: 0
-
+# Workflows
 workflows:
-  - name: loyalty.workflows.LoyaltyWorkflow
+  - name: LoyaltyWorkflow
     class: loyalty.workflows.LoyaltyWorkflowImpl
     concurrency: 10
 
+# Tasks
 tasks:
-  - name: loyalty.tasks.loyalpi.LoyalpiService
-    class: loyalty.tasks.loyalpi.LoyalpiServiceImpl
+  - name: LoyaltyService
+    class: loyalty.tasks.loyalty.LoyaltyServiceImpl
     concurrency: 10
-  - name: loyalty.tasks.rewards.RewardsService
+  - name: RewardsService
     class: loyalty.tasks.rewards.RewardsServiceImpl
     concurrency: 10
-  - name: loyalty.tasks.rules.RulesService
+  - name: RulesService
     class: loyalty.tasks.rules.RulesServiceImpl
     concurrency: 10
 

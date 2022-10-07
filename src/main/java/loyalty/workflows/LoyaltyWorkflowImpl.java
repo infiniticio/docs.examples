@@ -2,7 +2,7 @@ package loyalty.workflows;
 
 import io.infinitic.workflows.Channel;
 import io.infinitic.workflows.Workflow;
-import loyalty.tasks.loyalpi.LoyalpiService;
+import loyalty.tasks.loyalty.LoyaltyService;
 import loyalty.tasks.rewards.RewardsService;
 import loyalty.tasks.rules.RulesResult;
 import loyalty.tasks.rules.RulesService;
@@ -20,7 +20,7 @@ public class LoyaltyWorkflowImpl extends Workflow implements LoyaltyWorkflow {
     // create stub for RulesService
     private final RulesService rulesService = newTask(RulesService.class);
     // create stub for LoyalpiService
-    private final LoyalpiService loyalpiService = newTask(LoyalpiService.class);
+    private final LoyaltyService loyaltyService = newTask(LoyaltyService.class);
     // create stub for RewardsService
     private final RewardsService rewardsService = newTask(RewardsService.class);
 
@@ -61,7 +61,7 @@ public class LoyaltyWorkflowImpl extends Workflow implements LoyaltyWorkflow {
                     RulesResult rulesOutcomes = rulesService.flux(event, userId);
 
                     // Call Microservice 2 by doing an HTTP call and using the result of microservice 1
-                    loyalpiService.flux(rulesOutcomes, event, userId);
+                    loyaltyService.flux(rulesOutcomes, event, userId);
 
                     // Call Microservice 3 by doing an HTTP call and using the result of microservice 1
                     rewardsService.flux(rulesOutcomes, event, userId);
