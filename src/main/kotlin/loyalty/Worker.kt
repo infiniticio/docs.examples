@@ -1,4 +1,4 @@
-package loyalty
+package loyalty // ktlint-disable filename
 
 import io.infinitic.workers.InfiniticWorker
 
