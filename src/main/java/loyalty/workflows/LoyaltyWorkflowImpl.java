@@ -7,6 +7,7 @@ import loyalty.tasks.rewards.RewardsService;
 import loyalty.tasks.rules.RulesResult;
 import loyalty.tasks.rules.RulesService;
 
+@SuppressWarnings("unused")
 public class LoyaltyWorkflowImpl extends Workflow implements LoyaltyWorkflow {
 
     // event channel
@@ -18,11 +19,11 @@ public class LoyaltyWorkflowImpl extends Workflow implements LoyaltyWorkflow {
     }
 
     // create stub for RulesService
-    private final RulesService rulesService = newTask(RulesService.class);
+    private final RulesService rulesService = newService(RulesService.class);
     // create stub for LoyalpiService
-    private final LoyaltyService loyaltyService = newTask(LoyaltyService.class);
+    private final LoyaltyService loyaltyService = newService(LoyaltyService.class);
     // create stub for RewardsService
-    private final RewardsService rewardsService = newTask(RewardsService.class);
+    private final RewardsService rewardsService = newService(RewardsService.class);
 
     private String userId;
 
@@ -53,7 +54,7 @@ public class LoyaltyWorkflowImpl extends Workflow implements LoyaltyWorkflow {
 
                 if (event == Event.USER_TERMINATED) {
                     // send termination event to self
-                    getWorkflowById(LoyaltyWorkflow.class, context.getId()).getTerminationChannel().send(true);
+                    getWorkflowById(LoyaltyWorkflow.class, getWorkflowId()).getTerminationChannel().send(true);
                     // clear buffer in case we received more events after this one
                     bufferEvents.clear();
                 } else {

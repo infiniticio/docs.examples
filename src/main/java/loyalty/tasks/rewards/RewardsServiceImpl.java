@@ -1,10 +1,10 @@
 package loyalty.tasks.rewards;
 
-import io.infinitic.tasks.Task;
 import loyalty.tasks.rules.RulesResult;
 import loyalty.workflows.Event;
 
-public class RewardsServiceImpl extends Task implements RewardsService {
+@SuppressWarnings("unused")
+public class RewardsServiceImpl implements RewardsService {
 
     @Override
     public RewardsResult flux(RulesResult rules, Event event, String userId) {

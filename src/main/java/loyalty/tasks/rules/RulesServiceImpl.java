@@ -1,9 +1,9 @@
 package loyalty.tasks.rules;
 
-import io.infinitic.tasks.Task;
 import loyalty.workflows.Event;
 
-public class RulesServiceImpl extends Task implements RulesService {
+@SuppressWarnings("unused")
+public class RulesServiceImpl implements RulesService {
 
     @Override
     public RulesResult flux(Event event, String userId){

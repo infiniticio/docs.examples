@@ -11,13 +11,13 @@ pulsar:
 
 # Storage settings
 storage:
-  mysql:
+  #mysql:
   #  host: localhost
   #  port: 3306
   #  user: root
   #  password:
   #  database: infinitic
-  #redis:
+  redis:
   #  host: localhost
   #  port: 6379
   #  user:
@@ -30,8 +30,8 @@ workflows:
     class: loyalty.workflows.LoyaltyWorkflowImpl
     concurrency: 10
 
-# Tasks
-tasks:
+# Services
+services:
   - name: LoyaltyService
     class: loyalty.tasks.loyalty.LoyaltyServiceImpl
     concurrency: 10
