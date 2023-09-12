@@ -16,7 +16,7 @@ dependencies {
     // add a logger
     implementation 'org.slf4j:slf4j-simple:2.0.3'
     // infinitic version
-    version = "0.11.0"
+    version = "0.11.6"
     // infinitic client
     implementation 'io.infinitic:infinitic-client:' + version
     // infinitic worker
@@ -30,14 +30,14 @@ application {
     mainClassName = 'loyalty.Worker'
 }
 
-task dispatch(type: JavaExec) {
+tasks.register('dispatch', JavaExec) {
     group = "infinitic"
-    main = "loyalty.Client"
+    mainClass = "loyalty.Client"
     classpath = sourceSets.main.runtimeClasspath
 }
 
-task dashboard(type: JavaExec) {
+tasks.register('dashboard', JavaExec) {
     group = "infinitic"
-    main = "loyalty.Dashboard"
-    classpath = sourceSets["main"].runtimeClasspath
+    mainClass = "loyalty.Dashboard"
+    classpath = sourceSets.main.runtimeClasspath
 }

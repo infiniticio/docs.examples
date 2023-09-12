@@ -10,4 +10,7 @@ public interface LoyaltyWorkflow {
     void start(String userId);
 
     void receive(Event e);
+
+    // should be used only by itself
+    void execute();
 }

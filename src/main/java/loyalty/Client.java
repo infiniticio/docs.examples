@@ -30,7 +30,7 @@ public class Client {
 
                 Event event;
 
-                for (int j = 0; j < 500; j++) {
+                for (int j = 0; j < 10000; j++) {
                     event = Event.ORDER_COMPLETED;
                     client.dispatchVoid(w::receive, event);
                     System.out.println("Event " + event + " dispatched!");
@@ -43,8 +43,8 @@ public class Client {
                     client.dispatchVoid(w::receive, event);
                     System.out.println("Event " + event + " dispatched!");
 
-                    Thread.sleep(2000);
                     System.out.println("Loop " + j + " done");
+                    Thread.sleep(500);
                 }
 
                 event = Event.USER_TERMINATED;

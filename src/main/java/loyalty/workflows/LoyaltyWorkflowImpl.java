@@ -43,33 +43,48 @@ public class LoyaltyWorkflowImpl extends Workflow implements LoyaltyWorkflow {
         inlineVoid(() -> System.out.println("LoyaltyWorkflow: terminated for userId=" + userId));
     }
 
-    public void receive(Event e) {
-        bufferEvents.add(e);
+   public void execute() {
+        Event event = bufferEvents.remove(0);
 
-        if (!ongoing) {
-            ongoing = true;
+        if (event == Event.USER_TERMINATED) {
+            // send termination event to self
+            self().getTerminationChannel().send(true);
+            // clear buffer in case we received more events after this one
+            bufferEvents.clear();
+        } else {
+            // Call Microservice 1 by doing an HTTP call
+            RulesResult rulesOutcomes = rulesService.flux(event, userId);
 
-            while (bufferEvents.size() > 0) {
-                Event event = bufferEvents.remove(0);
+            // Call Microservice 2 by doing an HTTP call and using the result of microservice 1
+            loyaltyService.flux(rulesOutcomes, event, userId);
 
-                if (event == Event.USER_TERMINATED) {
-                    // send termination event to self
-                    getWorkflowById(LoyaltyWorkflow.class, getWorkflowId()).getTerminationChannel().send(true);
-                    // clear buffer in case we received more events after this one
-                    bufferEvents.clear();
-                } else {
-                    // Call Microservice 1 by doing an HTTP call
-                    RulesResult rulesOutcomes = rulesService.flux(event, userId);
+            // Call Microservice 3 by doing an HTTP call and using the result of microservice 1
+            rewardsService.flux(rulesOutcomes, event, userId);
+        }
 
-                    // Call Microservice 2 by doing an HTTP call and using the result of microservice 1
-                    loyaltyService.flux(rulesOutcomes, event, userId);
-
-                    // Call Microservice 3 by doing an HTTP call and using the result of microservice 1
-                    rewardsService.flux(rulesOutcomes, event, userId);
-                }
-            }
-
+        if (bufferEvents.size() > 0) {
+            dispatchVoid(self()::execute);
+        } else {
             ongoing = false;
         }
     }
+
+    public void receive(Event e) {
+        // adding to the buffer
+        bufferEvents.add(e);
+
+        // ongoing is false per default
+        if (!ongoing) {
+            // ongoing stays true, until bufferEvents is empty
+            ongoing = true;
+
+            dispatchVoid(self()::execute);
+        }
+    }
+
+    // Target itself
+    private LoyaltyWorkflow self() {
+        return getWorkflowById(LoyaltyWorkflow.class, getWorkflowId());
+    }
+
 }
