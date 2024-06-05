@@ -5,7 +5,7 @@ import kotlin.math.pow
 
 class ExponentialBackoffRetry : WithRetry {
     // Exponential backoff retry strategy up to 6 attempts
-    override fun getSecondsBeforeRetry(retry: Int, exception: Exception): Double? {
+    override fun getSecondsBeforeRetry(retry: Int, e: Exception): Double? {
         val delay = when {
             retry < 6 -> {
                 5 * Math.random() * 2.0.pow(retry)

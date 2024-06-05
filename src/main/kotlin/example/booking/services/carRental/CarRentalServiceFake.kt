@@ -20,10 +20,10 @@ class CarRentalServiceFake : CarRentalService {
                 log("car rental failed")
                 CarRentalResult.FAILURE
             }
-            r >= 3000 -> {
-                log("car rental threw exception!")
-                throw RuntimeException("failing request")
-            }
+//            r >= 3000 -> {
+//                log("car rental threw exception!")
+//                throw RuntimeException("failing request")
+//            }
             else -> {
                 log("car rental succeeded")
                 CarRentalResult.SUCCESS

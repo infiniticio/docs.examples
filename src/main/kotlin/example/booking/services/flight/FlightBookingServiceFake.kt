@@ -20,10 +20,10 @@ class FlightBookingServiceFake : FlightBookingService {
                 log("flight booking failed")
                 FlightBookingResult.FAILURE
             }
-            r >= 3000 -> {
-                log("flight booking threw exception!")
-                throw RuntimeException("failing request")
-            }
+//            r >= 3000 -> {
+//                log("flight booking threw exception!")
+//                throw RuntimeException("failing request")
+//            }
             else -> {
                 log("flight booking succeeded")
                 FlightBookingResult.SUCCESS

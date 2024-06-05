@@ -20,10 +20,10 @@ class HotelBookingServiceFake : HotelBookingService {
                 log("hotel booking failed")
                 HotelBookingResult.FAILURE
             }
-            r >= 3000 -> {
-                log("hotel booking threw exception!")
-                throw RuntimeException("failing request")
-            }
+//            r >= 3000 -> {
+//                log("hotel booking threw exception!")
+//                throw RuntimeException("failing request")
+//            }
             else -> {
                 log("hotel booking succeeded")
                 HotelBookingResult.SUCCESS

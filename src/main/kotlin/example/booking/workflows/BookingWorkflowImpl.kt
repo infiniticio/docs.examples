@@ -39,10 +39,12 @@ class BookingWorkflowImpl : Workflow(), BookingWorkflow {
 
         // wait and get result of deferred CarRentalService::book
         val carRentalResult = deferredCarRental.await()
+
         // wait and get result of deferred FlightService::book
         val flightResult = deferredFlightBooking.await()
+
         // wait and get result of deferred HotelService::book
-        val hotelResult = deferredHotelBooking.await()
+        val hotelResult =  deferredHotelBooking.await()
 
         // if at least one of the booking is failed than cancel all successful bookings
         if (carRentalResult == CarRentalResult.FAILURE ||
