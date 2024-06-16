@@ -11,7 +11,7 @@ pulsar:
 
 # Storage settings
 storage:
-  redis:
+  inmemory:
 
 # Services
 services:
