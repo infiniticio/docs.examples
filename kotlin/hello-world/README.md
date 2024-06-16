@@ -13,10 +13,10 @@ If needed, update credentials in `infinitic.yml`.
 You don't need to update `infinitic.yml` if you use a local standalone Pulsar instance. Run this Pulsar instance using `docker compose up`.
 
 ## Running services all together
-run `gradle run`
+run `./gradlew run`
 
 ## Launch
-Launch one workflow! `gradle startWorkflow  --args=Infinitic`
+Launch 10 workflows! `./gradlew dispatch`
 
 ## Dashboard
-run `gradle dashboard`
+run `./gradlew dashboard` - server will run on port indicated in `infinitic.yml`
