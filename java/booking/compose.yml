@@ -13,9 +13,6 @@ services:
       - "6650:6650"
       - "8080:8080"
       - "8081:8081"
-  redis:
-    image: redis:7.2.5
-
 volumes:
   pulsardata:
   pulsarconf:

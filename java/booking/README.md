@@ -7,7 +7,9 @@ if any of them fails, we should cancel the other bookings that were successful.
 This repository is described in the Infinitic documentation: https://docs.infinitic.io/overview/example-app
 
 ## Before running
-- If needed, update credentials in configs/infinitic.yml
+- If needed, update credentials in `src/main/resources/configs/infinitic.yml`
+
+- You don't need to update `infinitic.yml` if you use a local standalone Pulsar instance. Run this Pulsar instance using `docker compose up`.
 
 ## Running services separately
 - run bookingWorkflow service: `./gradlew run --args=/configs/bookingWorkflow.yml`

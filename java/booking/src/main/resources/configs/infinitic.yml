@@ -11,14 +11,14 @@ pulsar:
 
 # Workers settings
 storage:
-  #inMemory:
+  inMemory:
   #mysql:
   #  host: localhost
   #  port: 3306
   #  user: root
   #  password:
   #  database: infinitic
-  redis:
+  #redis:
   #  host: localhost
   #  port: 6379
   #  user:
