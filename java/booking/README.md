@@ -16,10 +16,10 @@ This repository is described in the Infinitic documentation: https://docs.infini
 - run hotelBooking service: `./gradlew run --args=/configs/hotelBooking.yml`
 
 ## Running services all together
-If you do not want to run each service separately, just `gradle run`
+If you do not want to run each service separately, just `./gradlew run`
 
 ## Launch
-Launch one or more workflows! `./gradlew startWorkflow`
+Launch one or more workflows! `./gradlew dispatch`
 
 
 Note: workflows will never complete if one of services is not running. But,
