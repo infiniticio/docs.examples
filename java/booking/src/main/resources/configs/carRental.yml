@@ -1,0 +1,4 @@
+services:
+  - name: CarRental
+    class: example.booking.services.carRental.CarRentalServiceFake
+    concurrency: 10

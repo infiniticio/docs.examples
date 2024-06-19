@@ -1,0 +1,41 @@
+plugins {
+    // Apply the java plugin to add support for Java
+    id 'java'
+    // Apply the application plugin to add support for building a CLI application.
+    id 'application'
+}
+
+repositories {
+    //mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    // Logger implementation
+    implementation 'org.slf4j:slf4j-simple:2.0.3'
+    // Infinitic version
+    String version = '0.12.0'
+    // Infinitic client
+    implementation 'io.infinitic:infinitic-client:' + version
+    // Infinitic worker
+    implementation 'io.infinitic:infinitic-worker:' + version
+    // Infinitic dashboard
+    implementation 'io.infinitic:infinitic-dashboard:' + version
+}
+
+application {
+    // Define the main class for the application.
+    mainClassName = "example.booking.Worker"
+}
+
+tasks.register('dispatch', JavaExec) {
+    group = "infinitic"
+    mainClass = "example.booking.Client"
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+tasks.register('dashboard', JavaExec) {
+    group = "infinitic"
+    mainClass = "example.booking.Dashboard"
+    classpath = sourceSets.main.runtimeClasspath
+}
