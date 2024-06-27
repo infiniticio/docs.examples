@@ -1,6 +1,6 @@
 plugins {
     // Apply the Kotlin JVM plugin to add support for Kotlin.
-    kotlin("jvm") version "1.9.20"
+    kotlin("jvm") version "2.0.0"
 
     // Apply the application plugin
     application
@@ -16,7 +16,7 @@ dependencies {
     implementation("org.slf4j:slf4j-simple:2.0.3")
 
     // infinitic version
-    version = "0.12.0"
+    version = "0.14.1"
     // infinitic client
     implementation("io.infinitic:infinitic-client:$version")
     // infinitic worker

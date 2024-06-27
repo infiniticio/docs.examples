@@ -14,7 +14,7 @@ dependencies {
     // Logger implementation
     implementation 'org.slf4j:slf4j-simple:2.0.3'
     // Infinitic version
-    String version = '0.12.0'
+    String version = '0.14.1'
     // Infinitic client
     implementation 'io.infinitic:infinitic-client:' + version
     // Infinitic worker

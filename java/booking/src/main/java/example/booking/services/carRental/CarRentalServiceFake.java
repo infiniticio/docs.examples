@@ -25,10 +25,11 @@ public class CarRentalServiceFake implements CarRentalService {
             return CarRentalResult.FAILURE;
         }
 
-        if (r >= 3000 ) {
-            log("car rental threw exception!");
-            throw new RuntimeException("failing request");
-        }
+        // Uncomment those lines to emulate failures and retries
+//        if (r >= 3000 ) {
+//            log("car rental threw exception!");
+//            throw new RuntimeException("failing request");
+//        }
 
         log("car rental succeeded");
         return CarRentalResult.SUCCESS;

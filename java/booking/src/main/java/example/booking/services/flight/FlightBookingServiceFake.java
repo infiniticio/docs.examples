@@ -25,10 +25,11 @@ public class FlightBookingServiceFake implements FlightBookingService {
             return FlightBookingResult.FAILURE;
         }
 
-        if (r >= 3000 ) {
-            log("flight booking threw exception!");
-            throw new RuntimeException("failing request");
-        }
+        // Uncomment those lines to emulate failures and retries
+//        if (r >= 3000 ) {
+//            log("flight booking threw exception!");
+//            throw new RuntimeException("failing request");
+//        }
 
         log("flight booking succeeded");
         return FlightBookingResult.SUCCESS;

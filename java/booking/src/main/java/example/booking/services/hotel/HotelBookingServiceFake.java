@@ -27,10 +27,11 @@ public class HotelBookingServiceFake implements HotelBookingService {
             return HotelBookingResult.FAILURE;
         }
 
-        if (r >= 3000 ) {
-            log("hotel booking threw exception!");
-            throw new RuntimeException("failing request");
-        }
+        // Uncomment those lines to emulate failures and retries
+//        if (r >= 3000 ) {
+//            log("hotel booking threw exception!");
+//            throw new RuntimeException("failing request");
+//        }
 
         log("hotel booking succeeded");
         return HotelBookingResult.SUCCESS;
