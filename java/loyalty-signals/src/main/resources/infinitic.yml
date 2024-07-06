@@ -1,7 +1,7 @@
 # Common settings
 pulsar:
-  tenant: public
-  namespace: default
+  tenant: infinitic
+  namespace: dev
   # brokerServiceUrl:
   # webServiceUrl:
   # authentication:
@@ -9,13 +9,14 @@ pulsar:
 
 # Storage settings
 storage:
+  inMemory:
   #mysql:
   #  host: localhost
   #  port: 3306
   #  user: root
   #  password:
   #  database: infinitic
-  redis:
+  #redis:
   #  host: localhost
   #  port: 6379
   #  user:
