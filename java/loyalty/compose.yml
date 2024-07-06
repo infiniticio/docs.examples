@@ -1,0 +1,19 @@
+services:
+  # Pulsar settings
+  pulsar-standalone:
+    image: apachepulsar/pulsar:3.0.4
+    environment:
+      - BOOKIE_MEM=" -Xms512m -Xmx512m -XX:MaxDirectMemorySize=1g"
+    command: >
+      /bin/bash -c "bin/apply-config-from-env.py conf/standalone.conf && bin/pulsar standalone"
+    volumes:
+      - "pulsardata:/pulsar/data"
+      - "pulsarconf:/pulsar/conf"
+    ports:
+      - "6650:6650"
+      - "8080:8080"
+      - "8081:8081"
+
+volumes:
+  pulsardata:
+  pulsarconf:
