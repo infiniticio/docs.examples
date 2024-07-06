@@ -1,1 +1,1 @@
-rootProject.name = "loyalty"
+rootProject.name = "kotlin.loyalty"

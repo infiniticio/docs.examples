@@ -1,6 +1,6 @@
 plugins {
     // Apply the Kotlin JVM plugin to add support for Kotlin.
-    id("org.jetbrains.kotlin.jvm") version "1.6.10"
+    id("org.jetbrains.kotlin.jvm") version "2.0.0"
 
     // Apply the application plugin to add support for building a CLI application.
     application
@@ -17,7 +17,7 @@ dependencies {
     // add a logger
     implementation("org.slf4j:slf4j-simple:2.0.3")
     // infinitic version
-    version = "0.11.0"
+    version = "0.14.1"
     // infinitic client
     implementation("io.infinitic:infinitic-client:$version")
     // infinitic worker
