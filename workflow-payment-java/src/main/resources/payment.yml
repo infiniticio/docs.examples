@@ -1,0 +1,5 @@
+workflows:
+  - name: PaymentWorkflow
+    class: com.acme.workflows.payment.java.PaymentWorkflowImpl
+    concurrency: 10
+

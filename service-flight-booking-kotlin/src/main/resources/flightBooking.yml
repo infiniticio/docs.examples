@@ -1,0 +1,4 @@
+services:
+  - name: FlightBooking
+    class: com.acme.services.flightBooking.kotlin.FlightBookingServiceImpl
+    concurrency: 10

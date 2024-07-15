@@ -1,0 +1,4 @@
+workflows:
+  - name: LoyaltyWorkflow
+    class: com.acme.workflows.loyalty.kotlin.LoyaltyWorkflowImpl
+    concurrency: 10

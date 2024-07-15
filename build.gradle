@@ -1,0 +1,30 @@
+
+subprojects {
+    apply plugin: 'java'
+
+    repositories {
+        mavenLocal()
+        maven { url = 'https://s01.oss.sonatype.org/content/repositories/snapshots/' }
+        mavenCentral()
+    }
+
+    dependencies {
+        // Infinitic
+        String version = '0.14.1-SNAPSHOT'
+        if (name == "contracts") {
+            implementation 'io.infinitic:infinitic-client:' + version
+        } else {
+            implementation 'io.infinitic:infinitic-worker:' + version
+            implementation project(':contracts')
+        }
+    }
+
+    // Apply a specific Java toolchain to ease working on different environments.
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(17)
+        }
+    }
+}
+
+

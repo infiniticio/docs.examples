@@ -1,0 +1,4 @@
+services:
+  - name: HelloService
+    class: com.acme.services.hello.kotlin.HelloServiceImpl
+    concurrency: 10

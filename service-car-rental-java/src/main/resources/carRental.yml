@@ -1,0 +1,4 @@
+services:
+  - name: CarRental
+    class: com.acme.services.carRental.java.CarRentalServiceImpl
+    concurrency: 10

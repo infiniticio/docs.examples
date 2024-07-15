@@ -1,4 +1,0 @@
-services:
-  - name: FlightBooking
-    class: example.booking.services.flight.FlightBookingServiceFake
-    concurrency: 10

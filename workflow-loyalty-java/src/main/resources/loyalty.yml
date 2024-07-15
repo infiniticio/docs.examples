@@ -1,0 +1,4 @@
+workflows:
+  - name: LoyaltyWorkflow
+    class: com.acme.workflows.loyalty.java.LoyaltyWorkflowImpl
+    concurrency: 10
