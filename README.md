@@ -1,11 +1,13 @@
-# Examples
+# Infinitic Examples
 
 This repository contains implementations of the examples described in the Infinitic documentation:
 
 - https://docs.infinitic.io/docs/introduction/hello-world
 - https://docs.infinitic.io/docs/introduction/examples
 
-## Languages
+## Project Overview and Setup Guide
+
+### Languages
 
 While this repository showcases both Java and Kotlin implementations side-by-side, 
 in a real-world scenario, you would typically choose one language for your project.
@@ -14,19 +16,7 @@ The dual implementation here is purely for demonstration purposes.
 We encourage you to explore the implementation in your preferred language
 and refer to the corresponding documentation for detailed explanations.
 
-## Repository Structure
-
-This repository is structured to reflect Infinitic's mission of simplifying distributed application implementation:
-
-- Each service and workflow has its own module and can be implemented independently.
-- All service and workflows interfaces and shared objects are located in the `contracts` module.
-
-The `contracts` module: 
-- serves as the central point for all interactions between Workflows and Services, and Workflows and other Workflows
-  (There are no direct interactions between services when using Infinitic).
-- is the only module needed for an Infinitic client to dispatch a task or a workflow. 
-
-## Prerequisites
+### Prerequisites
 
 To run the examples, you'll need:
 
@@ -42,6 +32,36 @@ For quick setup, we recommend using Docker:
 
 To use a different Pulsar cluster or database, update the [`infinitic.yml`](./contracts/src/main/resources/infinitic.yml) file.
 (Refer to the [Infinitic documentation](https://docs.infinitic.io/docs/workflows/workers) for configuration details.)
+
+### Repository Structure
+
+This repository is structured to reflect Infinitic's mission of simplifying distributed application implementation:
+
+- Each service and workflow has its own module and can be implemented independently.
+- All service and workflows interfaces and shared objects are located in the `contracts` module.
+
+The `contracts` module:
+- serves as the central point for all interactions between Workflows and Services, and Workflows and other Workflows
+  (There are no direct interactions between services when using Infinitic).
+- is the only module needed for an Infinitic client to dispatch a task or a workflow.
+
+### Worker Implementation
+
+For simplicity and consistency, all services and workflows in this repository use
+a common [Worker implementation](./contracts/src/main/java/com/acme/utils/Worker.java).
+
+The worker's behavior is customized through a configuration file, received as the first argument 
+when launched through the gradle tasks defined in the global [build file](./build.gradle).
+
+- **Location**: Configuration files are stored in the `resources` folder of each Workflow and Service.
+- **Versions**: Each configuration is available in two versions:
+  1. Java implementation
+  2. Kotlin implementation
+
+### Workflows Dispatching
+
+For demonstration purposes, Workflows are dispatched through [gradle tasks](./contracts/build.gradle) defined in the 
+`contracts` repository. The code used to launch them is [here](./contracts/src/test/java/com/acme/workflows).
 
 ## Hello World 
 
