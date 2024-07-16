@@ -3,18 +3,36 @@
 This repository contains Java and Kotlin implementations of the examples described in the Infinitic documentation:
 
 - https://docs.infinitic.io/docs/introduction/hello-world
-- https://docs.infinitic.io/docs/introduction/examples  
+- https://docs.infinitic.io/docs/introduction/examples
+
+## Repository Structure
+
+This repository is structured to reflect Infinitic's mission of simplifying distributed application implementation:
+
+- Each service and workflow has its own module and can be implemented independently.
+- All service and workflows interfaces and shared objects are located in the `contracts` module.
+
+The `contracts` module: 
+- serves as the central point for all interactions between Workflows and Services, and Workflows and other Workflows
+  (There are no direct interactions between services when using Infinitic).
+- is the only module needed in order to dispatch a task or a workflow. 
 
 ## Prerequisites
 
-Before running the examples, ensure you have [Docker](https://docs.docker.com/engine/install/) installed on your system.
+To run the examples, you'll need:
 
-- Clone this repository to your local machine.
-- Navigate to the project root folder.
-- Run  `docker compose up` to start local Pulsar and Redis instances:
+1. A [Pulsar](https://pulsar.apache.org) cluster
+2. A database (MySQL, PostgreSQL, or Redis)
 
-You can also run those examples on a different Pulsar cluster or database, just update the [`infinitic.yml`](./contracts/src/main/resources/infinitic.yml) file
-[accordingly](https://docs.infinitic.io/docs/workflows/workers).
+For quick setup, we recommend using Docker:
+
+1. Install [Docker](https://docs.docker.com/engine/install/) on your system.
+2. Clone this repository to your local machine.
+3. Navigate to the project root folder.
+4. Run `docker compose up` to start local Pulsar and Redis instances.
+
+To use a different Pulsar cluster or database, update the [`infinitic.yml`](./contracts/src/main/resources/infinitic.yml) file.
+(Refer to the [Infinitic documentation](https://docs.infinitic.io/docs/workflows/workers) for configuration details.)
 
 ## Hello World 
 
