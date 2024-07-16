@@ -1,9 +1,18 @@
-# examples
+# Examples
 
-This repository contains Java and Kotlin implementations of the examples described in the Infinitic documentation:
+This repository contains implementations of the examples described in the Infinitic documentation:
 
 - https://docs.infinitic.io/docs/introduction/hello-world
 - https://docs.infinitic.io/docs/introduction/examples
+
+## Languages
+
+While this repository showcases both Java and Kotlin implementations side-by-side, 
+in a real-world scenario, you would typically choose one language for your project.
+The dual implementation here is purely for demonstration purposes.
+
+We encourage you to explore the implementation in your preferred language
+and refer to the corresponding documentation for detailed explanations.
 
 ## Repository Structure
 
@@ -15,7 +24,7 @@ This repository is structured to reflect Infinitic's mission of simplifying dist
 The `contracts` module: 
 - serves as the central point for all interactions between Workflows and Services, and Workflows and other Workflows
   (There are no direct interactions between services when using Infinitic).
-- is the only module needed in order to dispatch a task or a workflow. 
+- is the only module needed for an Infinitic client to dispatch a task or a workflow. 
 
 ## Prerequisites
 
