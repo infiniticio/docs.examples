@@ -13,19 +13,16 @@ Before running the examples, ensure you have [Docker](https://docs.docker.com/en
 - Navigate to the project root folder.
 - Run  `docker compose up` to start local Pulsar and Redis instances:
 
-You can also run those examples on a different Pulsar cluster or database, just update the `infinitic.yml`([Java](./examples-java/src/main/resources/configs/infinitic.yml),
-[Kotlin](./examples-kotlin/src/main/resources/configs/infinitic.yml)) file
+You can also run those examples on a different Pulsar cluster or database, just update the [`infinitic.yml`](./contracts/src/main/resources/infinitic.yml) file
 [accordingly](https://docs.infinitic.io/docs/workflows/workers).
-
-Note: To avoid mixing messages, the Java and Kotlin implementations run on different Pulsar namespaces.
 
 ## Hello World 
 
-The `HelloWorkflow` ([Java](./workflow-hello-java/src/main/java/com/acme/workflows/hello/java/HelloWorkflowImpl.java),
-[Kotlin](./workflow-hello-kotlin/src/main/kotlin/com/acme/workflows/hello/kotlin/HelloWorkflowImpl.kt))
+The `HelloWorkflow` ([Java](./workflow-hello/src/main/java/com/acme/workflows/hello/java/HelloWorkflowImpl.java),
+[Kotlin](./workflow-hello/src/main/kotlin/com/acme/workflows/hello/kotlin/HelloWorkflowImpl.kt))
 illustrates how to implement a simple workflow with two sequential tasks from a `HelloService`
-([Java](./service-hello-java/src/main/java/com/acme/services/hello/java/HelloServiceImpl.java),
-[Kotlin](./service-hello-kotlin/src/main/kotlin/com/acme/services/hello/kotlin/HelloServiceImpl.kt))
+([Java](./service-hello/src/main/java/com/acme/services/hello/java/HelloServiceImpl.java),
+[Kotlin](./service-hello/src/main/kotlin/com/acme/services/hello/kotlin/HelloServiceImpl.kt))
 
 It takes a `name` string as input and return `"Hello $name!"` using the following tasks:
 
@@ -39,22 +36,18 @@ To be able to run `HelloWorkflow` instances:
 
 - Run a few `HelloService` workers
 
-  - in Java ([config](./service-hello-java/src/main/resources/hello.yml),
-    [code](./service-hello-java/src/main/java/com/acme/services/hello/java/Worker.java)):
-    `./gradlew service-hello-java:run`
+  - in Java ([config](./service-hello/src/main/resources/java/worker.yml)):
+    `./gradlew service-hello:run-java`
 
-  - and/or in Kotlin ([config](./service-hello-kotlin/src/main/resources/hello.yml),
-    [code](./service-hello-kotlin/src/main/kotlin/com/acme/services/hello/kotlin/Worker.kt)):
-    `./gradlew service-hello-kotlin:run`
+  - and/or in Kotlin ([config](./service-hello/src/main/resources/kotlin/worker.yml)):
+    `./gradlew service-hello:run-kotlin`
 
 - Run a few `HelloWorkflow` workers
 
-  - in Java ([config](./workflow-hello-java/src/main/resources/hello.yml),
-    [code](./workflow-hello-java/src/main/java/com/acme/workflows/hello/java/Worker.java)):
-    `./gradlew workflow-hello-java:run`
-  - and/or in Kotlin ([config](./workflow-hello-kotlin/src/main/resources/hello.yml),
-    [code](./workflow-hello-kotlin/src/main/kotlin/com/acme/workflows/hello/kotlin/Worker.kt)):
-    `./gradlew workflow-hello-kotlin:run`
+  - in Java ([config](./workflow-hello/src/main/resources/java/worker.yml)):
+    `./gradlew workflow-hello:run-java`
+  - and/or in Kotlin ([config](./workflow-hello/src/main/resources/kotlin/worker.yml)):
+    `./gradlew workflow-hello:run-kotlin`
 
 ### Starting Instances
 
@@ -110,19 +103,19 @@ all `HelloWorkflow` instances, run: `./gradlew contracts:hello-cancel`.
 
 ## Saga Workflow
 
-The `SagaWorkflow` ([Java](./workflow-saga-java/src/main/java/com/acme/workflows/saga/java/SagaWorkflowImpl.java),
-[Kotlin](./workflow-saga-kotlin/src/main/kotlin/com/acme/workflows/saga/kotlin/SagaWorkflowImpl.kt))
+The `SagaWorkflow` ([Java](./workflow-saga/src/main/java/com/acme/workflows/saga/java/SagaWorkflowImpl.java),
+[Kotlin](./workflow-saga/src/main/kotlin/com/acme/workflows/saga/kotlin/SagaWorkflowImpl.kt))
 implements a booking process combining a car rental, a flight, and a hotel reservation.
 We require that all 3 bookings have to be successful together:
 if any of them fails, we should cancel the other bookings that were successful.
 
 This workflow combines 3 services:
-- `CarRentalService` ([Java](./service-car-rental-java/src/main/java/com/acme/services/carRental/java/CarRentalServiceImpl.java),
-  [Kotlin](./service-car-rental-kotlin/src/main/kotlin/com/acme/services/carRental/kotlin/CarRentalServiceImpl.kt))
-- `FlightBookingService` ([Java](./service-flight-booking-java/src/main/java/com/acme/services/flightBooking/java/FlightBookingServiceImpl.java),
-  [Kotlin](./service-flight-booking-kotlin/src/main/kotlin/com/acme/services/flightBooking/kotlin/FlightBookingServiceImpl.kt))
-- `HotelBookingService` ([Java](./service-hotel-booking-java/src/main/java/com/acme/services/hotelBooking/java/HotelBookingServiceImpl.java),
-  [Kotlin](./service-hotel-booking-kotlin/src/main/kotlin/com/acme/services/hotelBooking/kotlin/HotelBookingServiceImpl.kt))
+- `CarRentalService` ([Java](./service-car-rental/src/main/java/com/acme/services/carRental/java/CarRentalServiceImpl.java),
+  [Kotlin](./service-car-rental/src/main/kotlin/com/acme/services/carRental/kotlin/CarRentalServiceImpl.kt))
+- `FlightBookingService` ([Java](./service-flight-booking/src/main/java/com/acme/services/flightBooking/java/FlightBookingServiceImpl.java),
+  [Kotlin](./service-flight-booking/src/main/kotlin/com/acme/services/flightBooking/kotlin/FlightBookingServiceImpl.kt))
+- `HotelBookingService` ([Java](./service-hotel-booking/src/main/java/com/acme/services/hotelBooking/java/HotelBookingServiceImpl.java),
+  [Kotlin](./service-hotel-booking/src/main/kotlin/com/acme/services/hotelBooking/kotlin/HotelBookingServiceImpl.kt))
 
 Each of them have `book`, and `cancel` methods.
 This last one is used to cancel a previously booked command.
@@ -134,42 +127,34 @@ To be able to run `SagaWorkflow` instances:
 
 - Run a few `CarRentalService` workers
 
-  - in Java ([config](./service-car-rental-java/src/main/resources/carRental.yml),
-    [code](./service-car-rental-java/src/main/java/com/acme/services/carRental/java/Worker.java)):
-    `./gradlew service-car-rental-java:run`
+  - in Java ([config](./service-car-rental/src/main/resources/java/worker.yml)):
+    `./gradlew service-car-rental:run-java`
 
-  - and/or in Kotlin ([config](./service-car-rental-kotlin/src/main/resources/carRental.yml),
-    [code](./service-car-rental-kotlin/src/main/kotlin/com/acme/services/carRental/kotlin/Worker.kt)):
-    `./gradlew service-car-rental-kotlin:run`
+  - and/or in Kotlin ([config](./service-car-rental/src/main/resources/kotlin/worker.yml)):
+    `./gradlew service-car-rental:run-kotlin`
 
 - Run a few `FlightBookingService` workers
 
-  - in Java ([config](./service-flight-booking-java/src/main/resources/flightBooking.yml),
-    [code](./service-flight-booking-java/src/main/java/com/acme/services/flightBooking/java/Worker.java)):
-    `./gradlew service-flight-booking-java:run`
+  - in Java ([config](./service-flight-booking/src/main/resources/java/worker.yml)):
+    `./gradlew service-flight-booking:run-java`
 
-  - and/or in Kotlin ([config](./service-flight-booking-kotlin/src/main/resources/flightBooking.yml),
-    [code](./service-flight-booking-kotlin/src/main/kotlin/com/acme/services/flightBooking/kotlin/Worker.kt)):
-    `./gradlew service-flight-booking-kotlin:run`
+  - and/or in Kotlin ([config](./service-flight-booking/src/main/resources/kotlin/worker.yml)):
+    `./gradlew service-flight-booking:run-kotlin`
 
 - Run a few `HotelBookingService` workers
 
-  - in Java ([config](./service-hotel-booking-java/src/main/resources/hotelBooking.yml),
-    [code](./service-hotel-booking-java/src/main/java/com/acme/services/hotelBooking/java/Worker.java)):
-    `./gradlew service-hotel-booking-java:run`
+  - in Java ([config](./service-hotel-booking/src/main/resources/java/worker.yml)):
+    `./gradlew service-hotel-booking:run-java`
 
-  - and/or in Kotlin ([config](./service-hotel-booking-kotlin/src/main/resources/hotelBooking.yml),
-    [code](./service-hotel-booking-kotlin/src/main/kotlin/com/acme/services/hotelBooking/kotlin/Worker.kt)):
-    `./gradlew service-hotel-booking-kotlin:run`
+  - and/or in Kotlin ([config](./service-hotel-booking/src/main/resources/kotlin/worker.yml)):
+    `./gradlew service-hotel-booking:run-kotlin`
 
 - Run a few `SagaWorkflow` workers
 
-  - in Java ([config](./workflow-saga-java/src/main/resources/saga.yml),
-    [code](./workflow-saga-java/src/main/java/com/acme/workflows/saga/java/Worker.java)):
-    `./gradlew workflow-saga-java:run`
-  - and/or in Kotlin ([config](./workflow-saga-kotlin/src/main/resources/saga.yml),
-    [code](./workflow-saga-kotlin/src/main/kotlin/com/acme/workflows/saga/kotlin/Worker.kt)):
-    `./gradlew workflow-saga-kotlin:run`
+  - in Java ([config](./workflow-saga/src/main/resources/java/worker.yml)):
+    `./gradlew workflow-saga:run-java`
+  - and/or in Kotlin ([config](./workflow-saga/src/main/resources/kotlin/worker.yml)):
+    `./gradlew workflow-saga:run-kotlin`
 
 ### Starting Instances
 
@@ -249,8 +234,8 @@ all `SagaWorkflow` instances, run: `./gradlew contracts:saga-cancel`.
 
 ## Loyalty
 
-The `LoyaltyWorkflow`([Java](./workflow-loyalty-java/src/main/java/com/acme/workflows/loyalty/java/LoyaltyWorkflowImpl.java),
-[Kotlin](./workflow-loyalty-kotlin/src/main/kotlin/com/acme/workflows/loyalty/kotlin/LoyaltyWorkflowImpl.kt))
+The `LoyaltyWorkflow`([Java](./workflow-loyalty/src/main/java/com/acme/workflows/loyalty/java/LoyaltyWorkflowImpl.java),
+[Kotlin](./workflow-loyalty/src/main/kotlin/com/acme/workflows/loyalty/kotlin/LoyaltyWorkflowImpl.kt))
 illustrates how to use the properties of a workflow to store a state.
 
 A `LoyaltyWorlkflow` instance has:
@@ -267,12 +252,10 @@ To be able to run `LoyaltyWorlkflow` instances:
 
 - Run a few `LoyaltyWorlkflow` workers
 
-  - in Java ([config](./workflow-loyalty-java/src/main/resources/loyalty.yml),
-    [code](./workflow-loyalty-java/src/main/java/com/acme/workflows/loyalty/java/Worker.java)):
-    `./gradlew workflow-loyalty-java:run`
-  - and/or in Kotlin ([config](./workflow-loyalty-kotlin/src/main/resources/loyalty.yml),
-    [code](./workflow-loyalty-kotlin/src/main/kotlin/com/acme/workflows/loyalty/kotlin/Worker.kt)):
-    `./gradlew workflow-loyalty-kotlin:run`
+  - in Java ([config](./workflow-loyalty/src/main/resources/java/worker.yml)):
+    `./gradlew workflow-loyalty:run-java`
+  - and/or in Kotlin ([config](./workflow-loyalty/src/main/resources/kotlin/worker.yml)):
+    `./gradlew workflow-loyalty:run-kotlin`
 
 ### Starting Instances
 
@@ -313,14 +296,14 @@ the instance: `./gradlew  contracts:loyalty-cancel --args '42'`.
 
 ## Booking
 
-The `BookingWorkflow`([Java](./workflow-booking-java/src/main/java/com/acme/workflows/booking/java/BookingWorkflowImpl.java),
-[Kotlin](./workflow-booking-kotlin/src/main/kotlin/com/acme/workflows/booking/kotlin/BookingWorkflowImpl.kt))
+The `BookingWorkflow`([Java](./workflow-booking/src/main/java/com/acme/workflows/booking/java/BookingWorkflowImpl.java),
+[Kotlin](./workflow-booking/src/main/kotlin/com/acme/workflows/booking/kotlin/BookingWorkflowImpl.kt))
 implements a communication process during a location booking, that includes:
 
-- the `NotificationService` ([Java](./service-notification-java/src/main/java/com/acme/services/notification/java/NotificationServiceImpl.java),
-  [Kotlin](./service-notification-kotlin/src/main/kotlin/com/acme/services/notification/kotlin/NotificationServiceImpl.kt))
-- the `PaymentWorkflow` ([Java](./workflow-payment-java/src/main/java/com/acme/workflows/payment/java/PaymentWorkflowImpl.java),
-  [Kotlin](./workflow-payment-kotlin/src/main/kotlin/com/acme/workflows/payment/kotlin/PaymentWorkflowImpl.kt))
+- the `NotificationService` ([Java](./service-notification/src/main/java/com/acme/services/notification/java/NotificationServiceImpl.java),
+  [Kotlin](./service-notification/src/main/kotlin/com/acme/services/notification/kotlin/NotificationServiceImpl.kt))
+- the `PaymentWorkflow` ([Java](./workflow-payment/src/main/java/com/acme/workflows/payment/java/PaymentWorkflowImpl.java),
+  [Kotlin](./workflow-payment/src/main/kotlin/com/acme/workflows/payment/kotlin/PaymentWorkflowImpl.kt))
 
 The workflow is described in https://docs.infinitic.io/docs/introduction/examples#location-booking.
 
@@ -329,30 +312,25 @@ To be able to run `BookingWorkflow` instances:
 
 - Run a few `NotificationService` workers 
 
-  - in Java ([config](./service-notification-java/src/main/resources/notification.yml),
-  [code](./service-notification-java/src/main/java/com/acme/services/notification/java/Worker.java)):
-  `./gradlew service-notification-java:run`
+  - in Java ([config](./service-notification/src/main/resources/java/worker.yml)):
+  `./gradlew service-notification:run-java`
   
-  - and/or in Kotlin ([config](./service-notification-kotlin/src/main/resources/notification.yml),
-  [code](./service-notification-kotlin/src/main/kotlin/com/acme/services/notification/kotlin/Worker.kt)):
-  `./gradlew service-notification-kotlin:run`
+  - and/or in Kotlin ([config](./service-notification/src/main/resources/kotlin/worker.yml)):
+  `./gradlew service-notification:run-kotlin`
 
 - Run a few `BookingWorkflow` workers
 
-  - in Java ([config](./workflow-booking-java/src/main/resources/booking.yml),
-    [code](./workflow-booking-java/src/main/java/com/acme/workflows/booking/java/Worker.java)):
-    `./gradlew workflow-booking-java:run`
-  - and/or in Kotlin ([config](./workflow-booking-kotlin/src/main/resources/booking.yml),
-    [code](./workflow-booking-kotlin/src/main/kotlin/com/acme/workflows/booking/kotlin/Worker.kt)): 
-     `./gradlew workflow-booking-kotlin:run`
+  - in Java ([config](./workflow-booking/src/main/resources/java/worker.yml)):
+    `./gradlew workflow-booking:run-java`
+  - and/or in Kotlin ([config](./workflow-booking/src/main/resources/kotlin/worker.yml)): 
+     `./gradlew workflow-booking:run-kotlin`
 
 - Run a few `PaymentWorkflow` workers
 
-  - in Java ([config](./workflow-payment-java/src/main/resources/payment.yml),
-    [code](./workflow-payment-java/src/main/java/com/acme/workflows/payment/java/Worker.java)):
-    `./gradlew workflow-payment-java:run`
-  - and/or in Kotlin ([config](./workflow-payment-kotlin/src/main/resources/payment.yml),
-    [code](./workflow-payment-kotlin/src/main/kotlin/com/acme/workflows/payment/kotlin/Worker.kt)): `./gradlew workflow-payment-kotlin:run`
+  - in Java ([config](./workflow-payment/src/main/resources/java/worker.yml)):
+    `./gradlew workflow-payment:run-java`
+    - and/or in Kotlin ([config](./workflow-payment/src/main/resources/kotlin/worker.yml)):
+    `./gradlew workflow-payment:run-kotlin`
 
 ### Starting Instances
 
