@@ -1,0 +1,4 @@
+services:
+  - name: HotelBooking
+    class: com.acme.services.hotelBooking.kotlin.HotelBookingServiceImpl
+    concurrency: 10

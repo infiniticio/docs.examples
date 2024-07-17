@@ -1,0 +1,4 @@
+workflows:
+  - name: HelloWorkflow
+    class: com.acme.workflows.hello.kotlin.HelloWorkflowImpl
+    concurrency: 10

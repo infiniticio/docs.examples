@@ -3,10 +3,16 @@
 
 # Ignore Gradle build output directory
 build
-bin
 
 # Ignore Logs
 *.log
 
 # Ignore Idea directory
 .idea
+
+# Ignore MacOs
+.DS_Store
+
+# Ignore Kotlin directory
+.kotlin
+

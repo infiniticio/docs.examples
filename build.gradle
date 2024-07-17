@@ -1,0 +1,59 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:2.0.0"
+    }
+}
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'org.jetbrains.kotlin.jvm'
+
+    repositories {
+        mavenLocal()
+        maven { url = 'https://s01.oss.sonatype.org/content/repositories/snapshots/' }
+        mavenCentral()
+    }
+
+    dependencies {
+        // Infinitic
+        String version = '0.14.1-SNAPSHOT'
+        implementation 'io.infinitic:infinitic-worker:' + version
+        if (name == "contracts") {
+            implementation 'io.infinitic:infinitic-client:' + version
+        } else {
+            implementation project(':contracts')
+        }
+    }
+
+    if (name != "contracts") {
+        tasks.register('run-java', JavaExec) {
+            group = "worker"
+            mainClass = 'com.acme.utils.Worker'
+            classpath = sourceSets.main.runtimeClasspath
+            args 'java/worker'
+        }
+
+        tasks.register('run-kotlin', JavaExec) {
+            group = "worker"
+            mainClass = 'com.acme.utils.Worker'
+            classpath = sourceSets.main.runtimeClasspath
+            args 'kotlin/worker'
+        }
+    }
+
+    // Apply a specific Java toolchain to ease working on different environments.
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(17)
+        }
+    }
+
+    kotlin {
+        jvmToolchain(17)
+    }
+}
+
+

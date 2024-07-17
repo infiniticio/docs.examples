@@ -1,0 +1,23 @@
+# Pulsar settings
+pulsar:
+  tenant: infinitic
+  namespace: dev-java
+  # brokerServiceUrl: pulsar+ssl://
+  # webServiceUrl: https://
+  # authentication:
+  #   token:
+
+# Storage settings
+storage:
+  # inMemory:
+  redis:
+  # mysql:
+  # postgres
+  #   host:
+  #   port:
+  #   user:
+  #   password:
+  #   database:
+
+# Dashboard Settings
+port: 9080

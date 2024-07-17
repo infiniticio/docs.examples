@@ -1,0 +1,4 @@
+workflows:
+  - name: BookingWorkflow
+    class: com.acme.workflows.booking.kotlin.BookingWorkflowImpl
+    concurrency: 10

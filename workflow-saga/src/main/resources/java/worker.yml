@@ -1,0 +1,4 @@
+workflows:
+  - name: SagaWorkflow
+    class: com.acme.workflows.saga.java.SagaWorkflowImpl
+    concurrency: 10

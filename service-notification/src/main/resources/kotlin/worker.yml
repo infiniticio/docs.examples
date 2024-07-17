@@ -1,0 +1,4 @@
+services:
+  - name: NotificationService
+    class: com.acme.services.notification.kotlin.NotificationServiceImpl
+    concurrency: 10

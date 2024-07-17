@@ -1,0 +1,19 @@
+pluginManagement {
+    plugins {
+        id 'org.jetbrains.kotlin.jvm' version '2.0.0'
+    }
+}
+
+include 'contracts'
+
+include 'service-hello'
+include 'service-car-rental'
+include 'service-flight-booking'
+include 'service-hotel-booking'
+include 'service-notification'
+
+include 'workflow-hello'
+include 'workflow-booking'
+include 'workflow-payment'
+include 'workflow-loyalty'
+include 'workflow-saga'

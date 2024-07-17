@@ -1,0 +1,4 @@
+services:
+  - name: HotelBooking
+    class: com.acme.services.hotelBooking.java.HotelBookingServiceImpl
+    concurrency: 10
