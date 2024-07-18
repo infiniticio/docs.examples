@@ -9,4 +9,6 @@ public interface LoyaltyWorkflow {
     void start();
 
     void addBonus(BonusEvent event);
+
+    PointStatus burn(long amount);
 }

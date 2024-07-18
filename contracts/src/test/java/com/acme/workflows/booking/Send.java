@@ -6,17 +6,20 @@ import io.infinitic.clients.InfiniticClient;
 public class Send extends AbstractClient {
     public static void main(String[] args) throws RuntimeException, InterruptedException {
         try(InfiniticClient client = InfiniticClient.fromConfigResource("/infinitic.yml")) {
-            // Retrieve the provided status
-            BookingRequestStatus requestStatus = BookingRequestStatus.getFromString((args.length == 0) ? "First arg" : args[0]);
-            // Retrieve the provide id
-            String customId = getCustomId((args.length > 1) ? args[1] : null);
-            // Target the BookingWorkflow instance with this customId tag
-            BookingWorkflow instance = client.getWorkflowByTag(BookingWorkflow.class, customId);
-            // Send the status to this instance through the responseChannel
-            client.dispatchVoidAsync(instance.getResponseChannel()::send, requestStatus)
-                    .thenApply(deferred -> printDispatched("Event " + requestStatus.toString(), customId))
-                    .exceptionally(error -> printError(requestStatus.toString(), error))
-                    .join();
+            BookingRequestStatus[] statuses = getEnums(BookingRequestStatus.class, args);
+            if (statuses.length == 0) throw new IllegalArgumentException("No BookingRequestStatus provided");
+            if (statuses.length > 1) throw new IllegalArgumentException("More than one BookingRequestStatus provided");
+            BookingRequestStatus status = statuses[0];
+
+            for (String customId : getCustomIds(excludeEnums(BookingRequestStatus.class, args))) {
+                // Target the BookingWorkflow instance with this customId tag
+                BookingWorkflow instance = client.getWorkflowByTag(BookingWorkflow.class, customId);
+                // Send the status to this instance through the responseChannel
+                client.dispatchVoidAsync(instance.getResponseChannel()::send, status)
+                        .thenApply(deferred -> printDispatched("Event " + status.toString(), customId))
+                        .exceptionally(error -> printError(status.toString(), error))
+                        .join();
+            }
         }
     }
 }

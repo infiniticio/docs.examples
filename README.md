@@ -53,8 +53,8 @@ a common [Worker implementation](./contracts/src/main/java/com/acme/utils/Worker
 The worker's behavior is customized through a configuration file, received as the first argument 
 when launched through the gradle tasks defined in the global [build file](./build.gradle).
 
-- **Location**: Configuration files are stored in the `resources` folder of each Workflow and Service.
-- **Versions**: Each configuration is available in two versions:
+Configuration files are stored in the `resources` folder of each Workflow and Service,
+and are available in two versions:
   1. Java implementation
   2. Kotlin implementation
 
@@ -307,39 +307,46 @@ To be able to run `LoyaltyWorlkflow` instances:
 ### Starting Instances
 
 To start ([code](./contracts/src/test/java/com/acme/workflows/loyalty/Start.java))
-a `LoyaltyWorlkflow` instance, run: `./gradlew contracts:loyalty-start --args '42'`.
-Here "42" is an arbitrary string that identifies the instance.
+a `LoyaltyWorlkflow` instance, run: `./gradlew contracts:loyalty-start --args 'user42'`.
+Here "user42" is an arbitrary string that identifies the instance.
 
 We can call the `addBonus` method on this running instance to illustrate how to add bonus points
 when a user does specific actions. To send ([code](./contracts/src/test/java/com/acme/workflows/loyalty/Send.java))
 a `BonusEvent` to this instance:
 
-- for a `ORDER_COMPLETED`, run: `./gradlew contracts:loyalty-send --args 'ORDER_COMPLETED 42'`.
-- for a `FORM_COMPLETED`, run: `./gradlew contracts:loyalty-send --args 'FORM_COMPLETED 42'`.
-- for a `REGISTRATION_COMPLETED`, run: `./gradlew contracts:loyalty-send --args 'REGISTRATION_COMPLETED 42'`.
+- for a `ORDER_COMPLETED`, run: `./gradlew contracts:loyalty-send --args 'ORDER_COMPLETED user42'`.
+- for a `FORM_COMPLETED`, run: `./gradlew contracts:loyalty-send --args 'FORM_COMPLETED user42'`.
 
-To get the current value of `points`: `./gradlew contracts:loyalty-get --args '42'`.
+We can call the `burn` method on this running instance to illustrate how to remove bonus points
+when a user does specific actions. To burn ([code](./contracts/src/test/java/com/acme/workflows/loyalty/Burn.java))
+1000 points: `./gradlew contracts:loyalty-burn --args '1000 user42'`.
 
-The consoles should look like:
+To get the current value of `points`: `./gradlew contracts:loyalty-get --args 'user42'`.
+
+The console should look like:
 
 ```
-07:44:34.069 - 0190b77f-03b4-7592-b293-954837743f8a (customId:42) - LoyaltyWorkflow - points = 0
-07:44:43.965 - 0190b77f-03b4-7592-b293-954837743f8a (customId:42) - LoyaltyWorkflow - points = 1
-07:44:53.922 - 0190b77f-03b4-7592-b293-954837743f8a (customId:42) - LoyaltyWorkflow - points = 2
-07:45:03.933 - 0190b77f-03b4-7592-b293-954837743f8a (customId:42) - LoyaltyWorkflow - points = 3
-07:45:09.142 - 0190b77f-03b4-7592-b293-954837743f8a (customId:42) - LoyaltyWorkflow - received ORDER_COMPLETED - new points = 503
-07:45:13.914 - 0190b77f-03b4-7592-b293-954837743f8a (customId:42) - LoyaltyWorkflow - points = 504
-07:45:23.937 - 0190b77f-03b4-7592-b293-954837743f8a (customId:42) - LoyaltyWorkflow - points = 505
-07:45:33.923 - 0190b77f-03b4-7592-b293-954837743f8a (customId:42) - LoyaltyWorkflow - points = 506
-07:45:37.261 - 0190b77f-03b4-7592-b293-954837743f8a (customId:42) - LoyaltyWorkflow - received FORM_COMPLETED - new points = 706
-07:45:43.921 - 0190b77f-03b4-7592-b293-954837743f8a (customId:42) - LoyaltyWorkflow - points = 707
-07:45:53.935 - 0190b77f-03b4-7592-b293-954837743f8a (customId:42) - LoyaltyWorkflow - points = 708
+03:55:58.115 - 0190c620-cf4c-7a8b-86d4-d206775d85c7 (customId:user42) - LoyaltyWorkflow - points = 0
+03:56:08.492 - 0190c620-cf4c-7a8b-86d4-d206775d85c7 (customId:user42) - LoyaltyWorkflow - points = 1
+03:56:18.068 - 0190c620-cf4c-7a8b-86d4-d206775d85c7 (customId:user42) - LoyaltyWorkflow - received ORDER_COMPLETED - new points = 501
+03:56:18.497 - 0190c620-cf4c-7a8b-86d4-d206775d85c7 (customId:user42) - LoyaltyWorkflow - points = 502
+03:56:28.507 - 0190c620-cf4c-7a8b-86d4-d206775d85c7 (customId:user42) - LoyaltyWorkflow - points = 503
+03:56:38.499 - 0190c620-cf4c-7a8b-86d4-d206775d85c7 (customId:user42) - LoyaltyWorkflow - points = 504
+03:56:41.686 - 0190c620-cf4c-7a8b-86d4-d206775d85c7 (customId:user42) - LoyaltyWorkflow - received FORM_COMPLETED - new points = 704
+03:56:48.499 - 0190c620-cf4c-7a8b-86d4-d206775d85c7 (customId:user42) - LoyaltyWorkflow - points = 705
+03:56:58.487 - 0190c620-cf4c-7a8b-86d4-d206775d85c7 (customId:user42) - LoyaltyWorkflow - points = 706
+03:56:58.579 - 0190c620-cf4c-7a8b-86d4-d206775d85c7 (customId:user42) - LoyaltyWorkflow - unable to burn 1000 - insufficient points = 706
+03:57:08.508 - 0190c620-cf4c-7a8b-86d4-d206775d85c7 (customId:user42) - LoyaltyWorkflow - points = 707
+03:57:12.219 - 0190c620-cf4c-7a8b-86d4-d206775d85c7 (customId:user42) - LoyaltyWorkflow - received ORDER_COMPLETED - new points = 1207
+03:57:18.494 - 0190c620-cf4c-7a8b-86d4-d206775d85c7 (customId:user42) - LoyaltyWorkflow - points = 1208
+03:57:21.924 - 0190c620-cf4c-7a8b-86d4-d206775d85c7 (customId:user42) - LoyaltyWorkflow - burnt 1000 - new points = 208
+03:57:28.500 - 0190c620-cf4c-7a8b-86d4-d206775d85c7 (customId:user42) - LoyaltyWorkflow - points = 209
 ```
 
 ### Canceling
 
 To cancel ([code](./contracts/src/test/java/com/acme/workflows/loyalty/Cancel.java))
-the instance: `./gradlew  contracts:loyalty-cancel --args '42'`.
+the instance: `./gradlew  contracts:loyalty-cancel --args 'user42'`.
 
 ## Booking
 

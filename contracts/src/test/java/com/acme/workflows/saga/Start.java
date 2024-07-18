@@ -16,8 +16,10 @@ public class Start extends AbstractClient {
             // create a stub for BookingWorkflow
             SagaWorkflow sagaWorkflow = client.newWorkflow(SagaWorkflow.class, Set.of(sagaTag));
 
-            int i = 0;
-            while (i < AbstractClient.getLong(args)) {
+            long[] ns = getLongs(args);
+            long n = ns.length == 0 ? 1 : ns[0];
+
+            for (int i = 0; i < n; i++) {
                 // faking some carts
                 CarRentalCart carRentalCart = new CarRentalCart();
                 FlightBookingCart flightCart = new FlightBookingCart();
@@ -28,7 +30,6 @@ public class Start extends AbstractClient {
                 client.dispatchAsync(sagaWorkflow::book, carRentalCart, flightCart, hotelCart)
                         .thenApply(deferred -> AbstractClient.printDispatched("Workflow " + strI, deferred.getId()))
                         .exceptionally(error -> AbstractClient.printError(strI, error));
-                i++;
             }
         }
     }
