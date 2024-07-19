@@ -17,3 +17,7 @@ include 'workflow-booking'
 include 'workflow-payment'
 include 'workflow-loyalty'
 include 'workflow-saga'
+include 'workflow-invoicing'
+include 'service-invoice'
+include 'service-metrics'
+

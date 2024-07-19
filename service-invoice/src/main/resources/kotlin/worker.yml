@@ -1,0 +1,4 @@
+services:
+  - name: InvoiceService
+    class: com.acme.services.invoice.kotlin.InvoiceServiceImpl
+    concurrency: 10

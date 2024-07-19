@@ -1,8 +1,10 @@
 package com.acme.services.notification.kotlin
 
+import com.acme.services.invoice.Invoice
 import com.acme.services.notification.BookingRequest
 import com.acme.services.notification.NotificationService
 import com.acme.utils.AbstractService.log
+import com.acme.workflows.invoicing.User
 
 
 class NotificationServiceImpl: NotificationService {
@@ -28,5 +30,9 @@ class NotificationServiceImpl: NotificationService {
 
     override fun notifyTravelerOfBookingDenial(request: BookingRequest) {
         log("Request ${request.id}: Notifying Traveler ${request.traveler} of the denial of her booking")
+    }
+
+    override fun sendInvoice(user: User, invoice: Invoice) {
+        log("Send Invoice ${invoice.id} to user ${user.id}")
     }
 }

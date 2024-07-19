@@ -1,9 +1,11 @@
 package com.acme.services.notification.java;
 
 
+import com.acme.services.invoice.Invoice;
 import com.acme.services.notification.BookingRequest;
 import com.acme.services.notification.NotificationService;
 import com.acme.utils.AbstractService;
+import com.acme.workflows.invoicing.User;
 
 public class NotificationServiceImpl extends AbstractService implements NotificationService {
     @Override
@@ -34,5 +36,10 @@ public class NotificationServiceImpl extends AbstractService implements Notifica
     @Override
     public void notifyTravelerOfBookingDenial(BookingRequest request) {
         log("Request " + request.getId() + ": Notifying Traveler " + request.getTraveler() + " of the denial of her booking");
+    }
+
+    @Override
+    public void sendInvoice(User user, Invoice invoice) {
+        log("Send Invoice " + invoice.getId() + " to user " + user.getId());
     }
 }

@@ -11,12 +11,14 @@ import java.util.Random;
 
 public class Start extends AbstractClient {
 
+    public static final String bookingTag = "booking";
+
     public static void main(String[] args) {
         try(InfiniticClient client = InfiniticClient.fromConfigResource("/infinitic.yml")) {
             // For all provided ids
             for (String customId : getCustomIds(args)) {
                 // create a stub from BookingWorkflow interface, with a customId tag
-                BookingWorkflow booking = client.newWorkflow(BookingWorkflow.class, Set.of(customId));
+                BookingWorkflow booking = client.newWorkflow(BookingWorkflow.class, Set.of(bookingTag, customId));
                 // Dispatch booking::start with a dummy BookingRequest
                 client.dispatchVoidAsync(booking::start, dummyBookingRequest(customId))
                         .thenApply(deferred -> printDispatched(customId, deferred.getId()))

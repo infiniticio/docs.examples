@@ -1,0 +1,4 @@
+services:
+  - name: MetricsService
+    class: com.acme.services.metrics.java.MetricsServiceImpl
+    concurrency: 10

@@ -6,7 +6,7 @@ import java.io.IOException;
 
 import static com.acme.workflows.hello.Start.helloWorldTag;
 
-public class Cancel {
+public class CancelAll {
     public static void main(String[] args) throws IOException {
         try(InfiniticClient client = InfiniticClient.fromConfigResource("/infinitic.yml")) {
             // cancelling the existing HelloWorld instances with the helloWorld tag
