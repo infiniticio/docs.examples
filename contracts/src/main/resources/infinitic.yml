@@ -1,7 +1,7 @@
 # Pulsar settings
 pulsar:
   tenant: infinitic
-  namespace: dev-java
+  namespace: dev
   # brokerServiceUrl: pulsar+ssl://
   # webServiceUrl: https://
   # authentication:
