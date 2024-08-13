@@ -31,19 +31,15 @@ For quick setup, we recommend using Docker:
 4. Run `docker compose up` to start local Pulsar and Redis instances.
 
 To use a different Pulsar cluster or database, update the [`infinitic.yml`](./contracts/src/main/resources/infinitic.yml) file.
-(Refer to the [Infinitic documentation](https://docs.infinitic.io/docs/workflows/workers) for configuration details.)
+(Refer to the [Infinitic documentation](https://docs.infinitic.io/docs/workflows/workers#configuration-file) for configuration details.)
 
 ### Repository Structure
 
-This repository is structured to reflect Infinitic's mission of simplifying distributed application implementation:
+This repository is orchestrated in alignment with Infinitic's aim to streamline
+the development of distributed applications. Here's how it is structured:
 
-- Each service and workflow has its own module and can be implemented independently.
-- All service and workflows interfaces and shared objects are located in the `contracts` module.
-
-The `contracts` module:
-- serves as the central point for all interactions between Workflows and Services, and Workflows and other Workflows
-  (There are no direct interactions between services when using Infinitic).
-- is the only module needed for an Infinitic client to dispatch a task or a workflow.
+- Individual modules are allocated for each service and workflow. This modular structure promotes independent maintenance of each component.
+- The `contracts` module houses the Java interfaces and shared objects that form the contract for all services and workflows. This encapsulates the agreements between various parts of your system in a centralized place.
 
 ### Worker Implementation
 
@@ -54,16 +50,16 @@ The worker's behavior is customized through a configuration file, received as th
 when launched through the gradle tasks defined in the global [build file](./build.gradle).
 
 Configuration files are stored in the `resources` folder of each Workflow and Service,
-and are available in two versions:
-  1. Java implementation
-  2. Kotlin implementation
+and are available in two versions, respectively targeting the Java or the Kotlin implementation.
 
 ### Workflows Dispatching
 
 For demonstration purposes, Workflows are dispatched through [gradle tasks](./contracts/build.gradle) defined in the 
 `contracts` repository. The code used to launch them is [here](./contracts/src/test/java/com/acme/workflows).
 
-## Hello World 
+## Hello World Workflow
+
+The workflow and its implementation are described [here](https://docs.infinitic.io/docs/introduction/hello-world).
 
 The `HelloWorkflow` ([Java](./workflow-hello/src/main/java/com/acme/workflows/hello/java/HelloWorkflowImpl.java),
 [Kotlin](./workflow-hello/src/main/kotlin/com/acme/workflows/hello/kotlin/HelloWorkflowImpl.kt))
@@ -75,8 +71,6 @@ It takes a `name` string as input and return `"Hello $name!"` using the followin
 
 - `sayHello` task: Takes a `name` string as input and returns `"Hello $name"`
 - `addEnthusiasm` task: Takes a `str` string as input and returns `"$str!"`
-
-The workflow is described in https://docs.infinitic.io/docs/introduction/hello-world.
 
 ### Deployment
 To be able to run `HelloWorkflow` instances:
@@ -145,16 +139,18 @@ The consoles should look like:
 
 ### Canceling
 
-To cancel ([code](./contracts/src/test/java/com/acme/workflows/hello/Cancel.java))
+To cancel ([code](./contracts/src/test/java/com/acme/workflows/hello/CancelAll.java))
 all `HelloWorkflow` instances, run: `./gradlew contracts:hello-cancel-all`.
 
 ## Saga Workflow
+
+The workflow and its implementation are described [here](https://docs.infinitic.io/docs/introduction/examples#saga-workflow)
 
 The `SagaWorkflow` ([Java](./workflow-saga/src/main/java/com/acme/workflows/saga/java/SagaWorkflowImpl.java),
 [Kotlin](./workflow-saga/src/main/kotlin/com/acme/workflows/saga/kotlin/SagaWorkflowImpl.kt))
 implements a booking process combining a car rental, a flight, and a hotel reservation.
 We require that all 3 bookings have to be successful together:
-if any of them fails, we should cancel the other bookings that were successful.
+if any of them is unable to complete, we should cancel the other bookings that were successful.
 
 This workflow combines 3 services:
 - `CarRentalService` ([Java](./service-car-rental/src/main/java/com/acme/services/carRental/java/CarRentalServiceImpl.java),
@@ -166,8 +162,6 @@ This workflow combines 3 services:
 
 Each of them have `book`, and `cancel` methods.
 This last one is used to cancel a previously booked command.
-
-The workflow implementation is described in https://docs.infinitic.io/docs/introduction/examples#bookings-and-saga
 
 ### Deployment
 To be able to run `SagaWorkflow` instances:
@@ -276,10 +270,12 @@ The consoles should look like:
 
 ### Canceling Instances
 
-To cancel ([code](./contracts/src/test/java/com/acme/workflows/saga/Cancel.java))
+To cancel ([code](./contracts/src/test/java/com/acme/workflows/saga/CancelAll.java))
 all `SagaWorkflow` instances, run: `./gradlew contracts:saga-cancel-all`.
 
 ## Invoicing
+
+The workflow and its implementation are described [here](https://docs.infinitic.io/docs/introduction/examples#monthly-invoicing).
 
 The `InvoicingWorkflow`([Java](./workflow-invoicing/src/main/java/com/acme/workflows/invoicing/java/InvoicingWorkflowImpl.java),
 [Kotlin](./workflow-invoicing/src/main/kotlin/com/acme/workflows/invoicing/kotlin/InvoicingWorkflowImpl.kt))
@@ -293,8 +289,6 @@ implements a simple process to prepare and send an invoice to a user every month
   [Kotlin](./service-notification/src/main/kotlin/com/acme/services/notification/kotlin/NotificationServiceImpl.kt))
 - the `PaymentWorkflow` ([Java](./workflow-payment/src/main/java/com/acme/workflows/payment/java/PaymentWorkflowImpl.java),
   [Kotlin](./workflow-payment/src/main/kotlin/com/acme/workflows/payment/kotlin/PaymentWorkflowImpl.kt))
-
-The workflow is described in https://docs.infinitic.io/docs/introduction/examples#monthly-invoicing.
 
 ### Deployment
 To be able to run `InvoicingWorkflow` instances:
@@ -386,7 +380,9 @@ The consoles should look like (Notes: for convenience, in the examples the invoi
 To cancel ([code](./contracts/src/test/java/com/acme/workflows/invoicing/Cancel.java))
 all instances: `./gradlew contracts:invoicing-cancel-all`.
 
-## Loyalty
+## Loyalty Workflow
+
+The workflow and its implementation are described in the [docs](https://docs.infinitic.io/docs/introduction/examples#loyalty-program).
 
 The `LoyaltyWorkflow`([Java](./workflow-loyalty/src/main/java/com/acme/workflows/loyalty/java/LoyaltyWorkflowImpl.java),
 [Kotlin](./workflow-loyalty/src/main/kotlin/com/acme/workflows/loyalty/kotlin/LoyaltyWorkflowImpl.kt))
@@ -398,8 +394,6 @@ A `LoyaltyWorlkflow` instance has:
 - a `start` method. Once started, `points` will be incremented every 10 seconds
 - an `addBonus` method with a BonusEvent object as parameter. When a bonus event occurs,
 `points` will be incremented by a value depending on the type of event.
-
-The workflow implementation is described in https://docs.infinitic.io/docs/introduction/examples#loyalty-program
 
 ### Deployment
 To be able to run `LoyaltyWorlkflow` instances:
@@ -454,15 +448,15 @@ The console should look like:
 
 To cancel ([code](./contracts/src/test/java/com/acme/workflows/loyalty/Cancel.java)) the instance: `./gradlew  contracts:loyalty-cancel --args 'user42'`.
 
-## Booking
+## Booking Workflow
+
+The workflow and its implementation are described in the [docs](https://docs.infinitic.io/docs/introduction/examples#location-booking).
 
 The `BookingWorkflow`([Java](./workflow-booking/src/main/java/com/acme/workflows/booking/java/BookingWorkflowImpl.java), [Kotlin](./workflow-booking/src/main/kotlin/com/acme/workflows/booking/kotlin/BookingWorkflowImpl.kt))
 implements a communication process during a location booking, that includes:
 
 - the `NotificationService` ([Java](./service-notification/src/main/java/com/acme/services/notification/java/NotificationServiceImpl.java),[Kotlin](./service-notification/src/main/kotlin/com/acme/services/notification/kotlin/NotificationServiceImpl.kt))
 - the `PaymentWorkflow` ([Java](./workflow-payment/src/main/java/com/acme/workflows/payment/java/PaymentWorkflowImpl.java),[Kotlin](./workflow-payment/src/main/kotlin/com/acme/workflows/payment/kotlin/PaymentWorkflowImpl.kt))
-
-The workflow is described in https://docs.infinitic.io/docs/introduction/examples#location-booking.
 
 ### Deployment
 To be able to run `BookingWorkflow` instances:
