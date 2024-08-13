@@ -13,13 +13,13 @@ subprojects {
 
     repositories {
         //mavenLocal()
-        maven { url = 'https://s01.oss.sonatype.org/content/repositories/snapshots/' }
+        //maven { url = 'https://s01.oss.sonatype.org/content/repositories/snapshots/' }
         mavenCentral()
     }
 
     dependencies {
         // Infinitic
-        String version = '0.15.0-SNAPSHOT'
+        String version = '0.15.0'
         implementation 'io.infinitic:infinitic-worker:' + version
         if (name == "contracts") {
             implementation 'io.infinitic:infinitic-client:' + version
