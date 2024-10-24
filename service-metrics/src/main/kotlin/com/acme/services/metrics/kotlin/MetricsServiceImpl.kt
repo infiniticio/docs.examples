@@ -1,8 +1,8 @@
 package com.acme.services.metrics.kotlin
 
-import com.acme.services.metrics.MetricsService
-import com.acme.utils.AbstractService
-import com.acme.workflows.invoicing.User
+import com.acme.contracts.services.metrics.MetricsService
+import com.acme.common.AbstractService
+import com.acme.contracts.workflows.invoicing.User
 import java.time.Duration
 import java.time.LocalDateTime
 

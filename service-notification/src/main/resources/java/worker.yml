@@ -1,4 +1,7 @@
 services:
   - name: NotificationService
-    class: com.acme.services.notification.java.NotificationServiceImpl
-    concurrency: 10
+    executor:
+      class: com.acme.services.notification.java.NotificationServiceImpl
+      concurrency: 10
+    tagEngine:
+      concurrency: 10

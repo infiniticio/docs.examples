@@ -1,17 +1,17 @@
 package com.acme.workflows.saga.java;
 
-import com.acme.services.carRental.CarRentalCart;
-import com.acme.services.carRental.CarRentalResult;
-import com.acme.services.carRental.CarRentalService;
-import com.acme.services.flightBooking.FlightBookingCart;
-import com.acme.services.flightBooking.FlightBookingResult;
-import com.acme.services.flightBooking.FlightBookingService;
-import com.acme.services.hotelBooking.HotelBookingCart;
-import com.acme.services.hotelBooking.HotelBookingResult;
-import com.acme.services.hotelBooking.HotelBookingService;
-import com.acme.utils.AbstractWorkflow;
-import com.acme.workflows.saga.SagaResult;
-import com.acme.workflows.saga.SagaWorkflow;
+import com.acme.contracts.services.carRental.CarRentalCart;
+import com.acme.contracts.services.carRental.CarRentalResult;
+import com.acme.contracts.services.carRental.CarRentalService;
+import com.acme.contracts.services.flightBooking.FlightBookingCart;
+import com.acme.contracts.services.flightBooking.FlightBookingResult;
+import com.acme.contracts.services.flightBooking.FlightBookingService;
+import com.acme.contracts.services.hotelBooking.HotelBookingCart;
+import com.acme.contracts.services.hotelBooking.HotelBookingResult;
+import com.acme.contracts.services.hotelBooking.HotelBookingService;
+import com.acme.common.AbstractWorkflow;
+import com.acme.contracts.workflows.saga.SagaResult;
+import com.acme.contracts.workflows.saga.SagaWorkflow;
 import io.infinitic.workflows.Deferred;
 
 @SuppressWarnings("unused")
@@ -43,17 +43,17 @@ public class SagaWorkflowImpl extends AbstractWorkflow implements SagaWorkflow {
         // wait and get result of deferred HotelService::book
         HotelBookingResult hotelResult = deferredHotelBooking.await();
 
-        // if at least one of the booking is failed than cancel all successful bookings
-        if (carRentalResult == CarRentalResult.FAILURE ||
-            flightResult == FlightBookingResult.FAILURE ||
-            hotelResult == HotelBookingResult.FAILURE
+        // if at least one of the booking can not be completed than rollback all successful ones
+        if (carRentalResult == CarRentalResult.REJECTED ||
+            flightResult == FlightBookingResult.REJECTED ||
+            hotelResult == HotelBookingResult.REJECTED
         ) {
-            if (carRentalResult == CarRentalResult.SUCCESS) { carRentalService.cancel(carRentalCart); }
-            if (flightResult == FlightBookingResult.SUCCESS) { flightBookingService.cancel(flightCart); }
-            if (hotelResult == HotelBookingResult.SUCCESS) { hotelBookingService.cancel(hotelCart); }
+            if (carRentalResult == CarRentalResult.SUCCESS) { carRentalService.rollback(carRentalCart); }
+            if (flightResult == FlightBookingResult.SUCCESS) { flightBookingService.rollback(flightCart); }
+            if (hotelResult == HotelBookingResult.SUCCESS) { hotelBookingService.rollback(hotelCart); }
 
             // printing is done through an inline task
-            log("Saga failed");
+            log("Saga roll backed");
 
             return SagaResult.FAILURE;
         }

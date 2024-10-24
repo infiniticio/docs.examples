@@ -1,10 +1,10 @@
 package com.acme.services.carRental.java;
 
-import com.acme.services.carRental.CarRentalCart;
-import com.acme.services.carRental.CarRentalResult;
-import com.acme.services.carRental.CarRentalService;
-import com.acme.utils.AbstractService;
-import com.acme.utils.ExponentialBackoffRetry;
+import com.acme.contracts.services.carRental.CarRentalCart;
+import com.acme.contracts.services.carRental.CarRentalResult;
+import com.acme.contracts.services.carRental.CarRentalService;
+import com.acme.common.AbstractService;
+import com.acme.common.ExponentialBackoffRetry;
 import io.infinitic.annotations.Retry;
 import org.jetbrains.annotations.NotNull;
 
@@ -29,13 +29,13 @@ public class CarRentalServiceImpl extends AbstractService implements CarRentalSe
         }
 
         if (r >= 4000) {
-            log("car rental failed");
-            return CarRentalResult.FAILURE;
+           log("car rental request rejected");
+            return CarRentalResult.REJECTED;
         }
 
         // Uncomment those lines to emulate failures and retries
-//        if (r >= 3000 ) {
-//            Service.log("car rental threw exception!");
+//        if (r >= 3800 ) {
+//            log("car rental service failed!");
 //            throw new RuntimeException("failing request");
 //        }
 
@@ -44,8 +44,8 @@ public class CarRentalServiceImpl extends AbstractService implements CarRentalSe
     }
 
     @Override
-    public void cancel(CarRentalCart cart) {
-        log("car rental canceled");
+    public void rollback(CarRentalCart cart) {
+        log("car rental request rolled back");
     }
 
 }

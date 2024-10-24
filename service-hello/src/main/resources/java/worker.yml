@@ -1,4 +1,7 @@
 services:
   - name: HelloService
-    class: com.acme.services.hello.java.HelloServiceImpl
-    concurrency: 10
+    executor:
+      class: com.acme.services.hello.java.HelloServiceImpl
+      concurrency: 10
+    tagEngine:
+      concurrency: 10

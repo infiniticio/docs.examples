@@ -1,4 +1,9 @@
 workflows:
   - name: InvoicingWorkflow
-    class: com.acme.workflows.invoicing.kotlin.InvoicingWorkflowImpl
-    concurrency: 10
+    executor:
+      class: com.acme.workflows.invoicing.kotlin.InvoicingWorkflowImpl
+      concurrency: 10
+    stateEngine:
+      concurrency: 10
+    tagEngine:
+      concurrency: 10

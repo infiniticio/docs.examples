@@ -1,18 +1,17 @@
 package com.acme.services.hotelBooking.java;
 
-import com.acme.services.hotelBooking.HotelBookingCart;
-import com.acme.services.hotelBooking.HotelBookingResult;
-import com.acme.services.hotelBooking.HotelBookingService;
-import com.acme.utils.AbstractService;
-import com.acme.utils.ExponentialBackoffRetry;
+import com.acme.contracts.services.hotelBooking.HotelBookingCart;
+import com.acme.contracts.services.hotelBooking.HotelBookingResult;
+import com.acme.contracts.services.hotelBooking.HotelBookingService;
+import com.acme.common.AbstractService;
+import com.acme.common.ExponentialBackoffRetry;
 import io.infinitic.annotations.Retry;
 
-import javax.validation.constraints.NotNull;
 
 @SuppressWarnings("unused")
 @Retry(with = ExponentialBackoffRetry.class)
 public class HotelBookingServiceImpl extends AbstractService implements HotelBookingService {
-    @Override @NotNull
+    @Override 
     public HotelBookingResult book(HotelBookingCart cart) {
         // fake emulation of success/failure
         log("hotel booking started...");
@@ -26,12 +25,12 @@ public class HotelBookingServiceImpl extends AbstractService implements HotelBoo
         }
 
         if (r >= 4000) {
-            log("hotel booking failed");
-            return HotelBookingResult.FAILURE;
+            log("hotel booking request rejected");
+            return HotelBookingResult.REJECTED;
         }
 
         // Uncomment those lines to emulate failures and retries
-//        if (r >= 3000 ) {
+//        if (r >= 3800 ) {
 //            log("hotel booking threw exception!");
 //            throw new RuntimeException("failing request");
 //        }
@@ -41,7 +40,7 @@ public class HotelBookingServiceImpl extends AbstractService implements HotelBoo
     }
 
     @Override
-    public void cancel(HotelBookingCart cart) {
-        log("hotel booking canceled");
+    public void rollback(HotelBookingCart cart) {
+        log("hotel booking request rolled back");
     }
 }

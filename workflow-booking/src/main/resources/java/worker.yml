@@ -1,4 +1,9 @@
 workflows:
   - name: BookingWorkflow
-    class: com.acme.workflows.booking.java.BookingWorkflowImpl
-    concurrency: 10
+    executor:
+      class: com.acme.workflows.booking.java.BookingWorkflowImpl
+      concurrency: 10
+    stateEngine:
+      concurrency: 10
+    tagEngine:
+      concurrency: 10

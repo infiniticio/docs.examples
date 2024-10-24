@@ -1,4 +1,9 @@
 workflows:
   - name: HelloWorkflow
-    class: com.acme.workflows.hello.java.HelloWorkflowImpl
-    concurrency: 10
+    executor:
+      class: com.acme.workflows.hello.java.HelloWorkflowImpl
+      concurrency: 10
+    stateEngine:
+      concurrency: 10
+    tagEngine:
+      concurrency: 10

@@ -1,9 +1,9 @@
 package com.acme.workflows.loyalty.java;
 
-import com.acme.utils.AbstractWorkflow;
-import com.acme.workflows.loyaty.BonusEvent;
-import com.acme.workflows.loyaty.LoyaltyWorkflow;
-import com.acme.workflows.loyaty.PointStatus;
+import com.acme.common.AbstractWorkflow;
+import com.acme.contracts.workflows.loyaty.BonusEvent;
+import com.acme.contracts.workflows.loyaty.LoyaltyWorkflow;
+import com.acme.contracts.workflows.loyaty.PointStatus;
 import io.infinitic.annotations.Ignore;
 
 import java.time.Duration;

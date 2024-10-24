@@ -1,0 +1,3 @@
+eventListener:
+  class: com.acme.events.java.EventListenerImpl
+  concurrency: 50

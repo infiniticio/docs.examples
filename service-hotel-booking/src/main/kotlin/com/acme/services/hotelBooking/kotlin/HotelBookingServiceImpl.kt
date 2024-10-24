@@ -1,10 +1,10 @@
 package com.acme.services.hotelBooking.kotlin
 
-import com.acme.services.hotelBooking.HotelBookingCart
-import com.acme.services.hotelBooking.HotelBookingResult
-import com.acme.services.hotelBooking.HotelBookingService
-import com.acme.utils.AbstractService.log
-import com.acme.utils.ExponentialBackoffRetry
+import com.acme.contracts.services.hotelBooking.HotelBookingCart
+import com.acme.contracts.services.hotelBooking.HotelBookingResult
+import com.acme.contracts.services.hotelBooking.HotelBookingService
+import com.acme.common.AbstractService.log
+import com.acme.common.ExponentialBackoffRetry
 import io.infinitic.annotations.Retry
 import kotlin.random.Random
 
@@ -20,10 +20,10 @@ class HotelBookingServiceImpl : HotelBookingService {
 
         return when {
             r >= 4000 -> {
-                log("hotel booking failed")
-                HotelBookingResult.FAILURE
+                log("hotel booking request rejected")
+                HotelBookingResult.REJECTED
             }
-//            r >= 3000 -> {
+//            r >= 3800 -> {
 //                log("hotel booking threw exception!")
 //                throw RuntimeException("failing request")
 //            }
@@ -34,7 +34,7 @@ class HotelBookingServiceImpl : HotelBookingService {
         }
     }
 
-    override fun cancel(cart: HotelBookingCart) {
-        log("hotel booking canceled!")
+    override fun rollback(cart: HotelBookingCart) {
+        log("hotel booking request rolled back")
     }
 }

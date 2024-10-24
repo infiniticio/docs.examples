@@ -1,7 +1,7 @@
 package com.acme.services.hello.kotlin
 
-import com.acme.services.hello.HelloService
-import com.acme.utils.AbstractService.log
+import com.acme.contracts.services.hello.HelloService
+import com.acme.common.AbstractService.log
 
 @Suppress("unused")
 class HelloServiceImpl : HelloService {

@@ -1,10 +1,10 @@
 package com.acme.services.flightBooking.java;
 
-import com.acme.services.flightBooking.FlightBookingCart;
-import com.acme.services.flightBooking.FlightBookingResult;
-import com.acme.services.flightBooking.FlightBookingService;
-import com.acme.utils.AbstractService;
-import com.acme.utils.ExponentialBackoffRetry;
+import com.acme.contracts.services.flightBooking.FlightBookingCart;
+import com.acme.contracts.services.flightBooking.FlightBookingResult;
+import com.acme.contracts.services.flightBooking.FlightBookingService;
+import com.acme.common.AbstractService;
+import com.acme.common.ExponentialBackoffRetry;
 import io.infinitic.annotations.Retry;
 import org.jetbrains.annotations.NotNull;
 
@@ -24,13 +24,12 @@ public class FlightBookingServiceImpl extends AbstractService implements FlightB
         }
 
         if (r >= 4000) {
-            log("flight booking failed");
-            return FlightBookingResult.FAILURE;
+            log("flight booking request rejected");
+            return FlightBookingResult.REJECTED;
         }
 
-        // Uncomment those lines to emulate failures and retries
-//        if (r >= 3000 ) {
-//            log("flight booking threw exception!");
+//        if (r >= 3800 ) {
+//            log("flight booking service failed!");
 //            throw new RuntimeException("failing request");
 //        }
 
@@ -39,7 +38,7 @@ public class FlightBookingServiceImpl extends AbstractService implements FlightB
     }
 
     @Override
-    public void cancel(FlightBookingCart cart) {
-        log("flight booking canceled");
+    public void rollback(FlightBookingCart cart) {
+        log("flight booking request rolled back");
     }
 }
