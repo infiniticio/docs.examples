@@ -11,9 +11,6 @@
     <logger name="io.infinitic.workers" level="INFO" additivity="false">
         <appender-ref ref="STDOUT" />
     </logger>
-    <logger name="io.infinitic.workflows.engine.WorkflowStateEngine" level="DEBUG" additivity="false">
-        <appender-ref ref="STDOUT" />
-    </logger>
     <logger name="io.infinitic.cloudEvents" level="INFO" additivity="false">
         <appender-ref ref="STDOUT" />
     </logger>

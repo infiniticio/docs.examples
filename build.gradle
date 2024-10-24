@@ -12,14 +12,14 @@ subprojects {
     apply plugin: 'org.jetbrains.kotlin.jvm'
 
     repositories {
-        mavenLocal()
+        //mavenLocal()
         //maven { url = 'https://s01.oss.sonatype.org/content/repositories/snapshots/' }
         mavenCentral()
     }
 
     dependencies {
         // Infinitic
-        String version = '0.16.0-SNAPSHOT'
+        String version = '0.16.1'
         implementation 'io.infinitic:infinitic-worker:' + version
 
         implementation 'ch.qos.logback:logback-classic:1.4.5'
