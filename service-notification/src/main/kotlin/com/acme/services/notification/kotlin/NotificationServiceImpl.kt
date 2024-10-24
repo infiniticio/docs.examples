@@ -1,10 +1,10 @@
 package com.acme.services.notification.kotlin
 
-import com.acme.services.invoice.Invoice
-import com.acme.services.notification.BookingRequest
-import com.acme.services.notification.NotificationService
-import com.acme.utils.AbstractService.log
-import com.acme.workflows.invoicing.User
+import com.acme.contracts.services.invoice.Invoice
+import com.acme.contracts.services.notification.BookingRequest
+import com.acme.contracts.services.notification.NotificationService
+import com.acme.common.AbstractService.log
+import com.acme.contracts.workflows.invoicing.User
 
 
 class NotificationServiceImpl: NotificationService {

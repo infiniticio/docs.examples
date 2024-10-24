@@ -1,11 +1,12 @@
 package com.acme.services.flightBooking.kotlin
 
-import com.acme.services.flightBooking.FlightBookingCart
-import com.acme.services.flightBooking.FlightBookingResult
-import com.acme.services.flightBooking.FlightBookingService
-import com.acme.utils.AbstractService.log
-import com.acme.utils.ExponentialBackoffRetry
+import com.acme.contracts.services.flightBooking.FlightBookingCart
+import com.acme.contracts.services.flightBooking.FlightBookingResult
+import com.acme.contracts.services.flightBooking.FlightBookingService
+import com.acme.common.AbstractService.log
+import com.acme.common.ExponentialBackoffRetry
 import io.infinitic.annotations.Retry
+import io.infinitic.common.serDe.SerializedData
 import kotlin.random.Random
 
 @Suppress("unused")
@@ -20,11 +21,11 @@ class FlightBookingServiceImpl : FlightBookingService {
 
         return when {
             r >= 4000 -> {
-                log("flight booking failed")
-                FlightBookingResult.FAILURE
+                log("flight booking request rejected")
+                FlightBookingResult.REJECTED
             }
-//            r >= 3000 -> {
-//                log("flight booking threw exception!")
+//            r >= 3800 -> {
+//                log("flight booking service failed!")
 //                throw RuntimeException("failing request")
 //            }
             else -> {
@@ -34,7 +35,7 @@ class FlightBookingServiceImpl : FlightBookingService {
         }
     }
 
-    override fun cancel(cart: FlightBookingCart) {
-        log("flight booking canceled!")
+    override fun rollback(cart: FlightBookingCart) {
+        log("flight booking request rolled back")
     }
 }

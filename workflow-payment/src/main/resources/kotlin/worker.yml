@@ -1,5 +1,9 @@
 workflows:
   - name: PaymentWorkflow
-    class: com.acme.workflows.payment.kotlin.PaymentWorkflowImpl
-    concurrency: 10
-
+    executor:
+      class: com.acme.workflows.payment.kotlin.PaymentWorkflowImpl
+      concurrency: 10
+    stateEngine:
+      concurrency: 10
+    tagEngine:
+      concurrency: 10

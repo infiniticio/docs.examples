@@ -1,8 +1,8 @@
 package com.acme.workflows.hello.kotlin
 
-import com.acme.services.hello.HelloService
-import com.acme.utils.AbstractWorkflow
-import com.acme.workflows.hello.HelloWorkflow
+import com.acme.contracts.services.hello.HelloService
+import com.acme.common.AbstractWorkflow
+import com.acme.contracts.workflows.hello.HelloWorkflow
 
 class HelloWorkflowImpl : AbstractWorkflow(), HelloWorkflow {
 

@@ -1,9 +1,9 @@
 package com.acme.services.invoice.java;
 
-import com.acme.services.invoice.Invoice;
-import com.acme.services.invoice.InvoiceService;
-import com.acme.utils.AbstractService;
-import com.acme.workflows.invoicing.User;
+import com.acme.contracts.services.invoice.Invoice;
+import com.acme.contracts.services.invoice.InvoiceService;
+import com.acme.common.AbstractService;
+import com.acme.contracts.workflows.invoicing.User;
 
 import java.time.LocalDateTime;
 

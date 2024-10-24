@@ -1,0 +1,29 @@
+# Pulsar settings
+transport:
+  pulsar:
+    brokerServiceUrl: pulsar://localhost:6650/
+    webServiceUrl: http://localhost:8080
+    tenant: infinitic
+    namespace: dev
+    # client:
+    #  listenerName: external
+    # authentication:
+    #   token:
+
+# Storage settings
+storage:
+  # inMemory:
+  redis:
+    host: localhost
+    port: 6379
+  # mysql:
+  # postgres
+  #   host:
+  #   port:
+  #   user:
+  #   password:
+  #   database:
+
+# Dashboard Settings
+port: 9080
+

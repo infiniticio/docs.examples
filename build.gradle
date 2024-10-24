@@ -3,7 +3,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:2.0.0"
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:2.0.20'
     }
 }
 
@@ -12,33 +12,40 @@ subprojects {
     apply plugin: 'org.jetbrains.kotlin.jvm'
 
     repositories {
-        //mavenLocal()
+        mavenLocal()
         //maven { url = 'https://s01.oss.sonatype.org/content/repositories/snapshots/' }
         mavenCentral()
     }
 
     dependencies {
         // Infinitic
-        String version = '0.15.0'
+        String version = '0.16.0-SNAPSHOT'
         implementation 'io.infinitic:infinitic-worker:' + version
-        if (name == "contracts") {
+
+        implementation 'ch.qos.logback:logback-classic:1.4.5'
+
+        if (name == "common") {
             implementation 'io.infinitic:infinitic-client:' + version
-        } else {
+        } else if (name == "contracts") {
+            // nothing
+        }
+        else {
+            implementation project(':common')
             implementation project(':contracts')
         }
     }
 
-    if (name != "contracts") {
+    if (name != "contracts" && name != "common") {
         tasks.register('run-java', JavaExec) {
             group = "worker"
-            mainClass = 'com.acme.utils.Worker'
+            mainClass = 'com.acme.common.Worker'
             classpath = sourceSets.main.runtimeClasspath
             args 'java/worker'
         }
 
         tasks.register('run-kotlin', JavaExec) {
             group = "worker"
-            mainClass = 'com.acme.utils.Worker'
+            mainClass = 'com.acme.common.Worker'
             classpath = sourceSets.main.runtimeClasspath
             args 'kotlin/worker'
         }

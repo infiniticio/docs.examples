@@ -1,17 +1,15 @@
 package com.acme.workflows.invoicing.java;
 
-import com.acme.services.invoice.Invoice;
-import com.acme.services.invoice.InvoiceService;
-import com.acme.services.metrics.MetricsService;
-import com.acme.services.notification.NotificationService;
-import com.acme.utils.AbstractWorkflow;
-import com.acme.workflows.invoicing.InvoicingWorkflow;
-import com.acme.workflows.invoicing.User;
-import com.acme.workflows.loyaty.LoyaltyWorkflow;
-import com.acme.workflows.payment.PaymentWorkflow;
+import com.acme.contracts.services.invoice.Invoice;
+import com.acme.contracts.services.invoice.InvoiceService;
+import com.acme.contracts.services.metrics.MetricsService;
+import com.acme.contracts.services.notification.NotificationService;
+import com.acme.common.AbstractWorkflow;
+import com.acme.contracts.workflows.invoicing.InvoicingWorkflow;
+import com.acme.contracts.workflows.invoicing.User;
+import com.acme.contracts.workflows.payment.PaymentWorkflow;
 
 import java.time.*;
-import java.time.temporal.ChronoUnit;
 
 public class InvoicingWorkflowImpl extends AbstractWorkflow implements InvoicingWorkflow {
     // workflow stub that targets itself

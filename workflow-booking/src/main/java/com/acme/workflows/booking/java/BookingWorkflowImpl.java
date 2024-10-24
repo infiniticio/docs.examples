@@ -1,11 +1,11 @@
 package com.acme.workflows.booking.java;
 
-import com.acme.services.notification.BookingRequest;
-import com.acme.services.notification.NotificationService;
-import com.acme.utils.AbstractWorkflow;
-import com.acme.workflows.booking.BookingRequestStatus;
-import com.acme.workflows.booking.BookingWorkflow;
-import com.acme.workflows.payment.PaymentWorkflow;
+import com.acme.contracts.services.notification.BookingRequest;
+import com.acme.contracts.services.notification.NotificationService;
+import com.acme.common.AbstractWorkflow;
+import com.acme.contracts.workflows.booking.BookingRequestStatus;
+import com.acme.contracts.workflows.booking.BookingWorkflow;
+import com.acme.contracts.workflows.payment.PaymentWorkflow;
 import io.infinitic.annotations.Ignore;
 import io.infinitic.workflows.Channel;
 import io.infinitic.workflows.Deferred;

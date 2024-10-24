@@ -1,0 +1,4 @@
+eventListener:
+  class: com.acme.events.kotlin.EventListenerImpl
+  concurrency: 50
+

@@ -1,11 +1,11 @@
 package com.acme.services.notification.java;
 
 
-import com.acme.services.invoice.Invoice;
-import com.acme.services.notification.BookingRequest;
-import com.acme.services.notification.NotificationService;
-import com.acme.utils.AbstractService;
-import com.acme.workflows.invoicing.User;
+import com.acme.contracts.services.invoice.Invoice;
+import com.acme.contracts.services.notification.BookingRequest;
+import com.acme.contracts.services.notification.NotificationService;
+import com.acme.common.AbstractService;
+import com.acme.contracts.workflows.invoicing.User;
 
 public class NotificationServiceImpl extends AbstractService implements NotificationService {
     @Override

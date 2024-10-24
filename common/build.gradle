@@ -1,0 +1,95 @@
+
+dependencies {
+    implementation project(':contracts')
+}
+
+tasks.register('hello-start', JavaExec) {
+    group = "infinitic"
+    mainClass = 'com.acme.clients.hello.Start'
+    classpath = sourceSets.test.runtimeClasspath
+}
+
+tasks.register('hello-cancel-all', JavaExec) {
+    group = "infinitic"
+    mainClass = 'com.acme.clients.hello.CancelAll'
+    classpath = sourceSets.test.runtimeClasspath
+}
+
+tasks.register('saga-start', JavaExec) {
+    group = "client"
+    mainClass = 'com.acme.clients.saga.Start'
+    classpath = sourceSets.test.runtimeClasspath
+}
+
+tasks.register('saga-cancel-all', JavaExec) {
+    group = "client"
+mainClass = 'com.acme.clients.saga.CancelAll'
+    classpath = sourceSets.test.runtimeClasspath
+}
+
+tasks.register('invoicing-start', JavaExec) {
+    group = "client"
+    mainClass = 'com.acme.clients.invoicing.Start'
+    classpath = sourceSets.test.runtimeClasspath
+}
+
+tasks.register('invoicing-cancel', JavaExec) {
+    group = "client"
+    mainClass = 'com.acme.clients.invoicing.Cancel'
+    classpath = sourceSets.test.runtimeClasspath
+}
+
+tasks.register('invoicing-cancel-all', JavaExec) {
+    group = "client"
+    mainClass = 'com.acme.clients.invoicing.CancelAll'
+    classpath = sourceSets.test.runtimeClasspath
+}
+
+tasks.register('loyalty-start', JavaExec) {
+    group = "client"
+    mainClass = 'com.acme.clients.loyalty.Start'
+    classpath = sourceSets.test.runtimeClasspath
+}
+
+tasks.register('loyalty-send', JavaExec) {
+    group = "client"
+    mainClass = 'com.acme.clients.loyalty.Send'
+    classpath = sourceSets.test.runtimeClasspath
+}
+
+tasks.register('loyalty-get', JavaExec) {
+    group = "client"
+    mainClass = 'com.acme.clients.loyalty.Get'
+    classpath = sourceSets.test.runtimeClasspath
+}
+
+tasks.register('loyalty-cancel', JavaExec) {
+    group = "client"
+    mainClass = 'com.acme.clients.loyalty.Cancel'
+    classpath = sourceSets.test.runtimeClasspath
+}
+
+tasks.register('booking-start', JavaExec) {
+    group = "client"
+    mainClass = 'com.acme.clients.booking.Start'
+    classpath = sourceSets.test.runtimeClasspath
+}
+
+tasks.register('booking-send', JavaExec) {
+    group = "client"
+    mainClass = 'com.acme.clients.booking.Send'
+    classpath = sourceSets.test.runtimeClasspath
+}
+
+tasks.register('booking-cancel', JavaExec) {
+    group = "client"
+    mainClass = 'com.acme.clients.booking.Cancel'
+    classpath = sourceSets.test.runtimeClasspath
+}
+
+tasks.register('booking-cancel-all', JavaExec) {
+    group = "client"
+    mainClass = 'com.acme.clients.booking.CancelAll'
+    classpath = sourceSets.test.runtimeClasspath
+}
+

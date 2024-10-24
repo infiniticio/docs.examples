@@ -1,14 +1,22 @@
 package com.acme.workflows.booking.kotlin
 
-import com.acme.services.notification.BookingRequest
-import com.acme.services.notification.NotificationService
-import com.acme.utils.AbstractWorkflow
-import com.acme.workflows.booking.BookingRequestStatus
-import com.acme.workflows.booking.BookingWorkflow
-import com.acme.workflows.payment.PaymentWorkflow
+import com.acme.contracts.services.notification.BookingRequest
+import com.acme.contracts.services.notification.NotificationService
+import com.acme.common.AbstractWorkflow
+import com.acme.contracts.workflows.booking.BookingRequestStatus
+import com.acme.contracts.workflows.booking.BookingWorkflow
+import com.acme.contracts.workflows.payment.PaymentWorkflow
 import io.infinitic.annotations.Ignore
-import java.time.Duration
+import io.infinitic.cache.config.CaffeineCacheConfig
+import io.infinitic.storage.compression.CompressionConfig
+import io.infinitic.storage.config.MySQLStorageConfig
+import io.infinitic.storage.config.StorageConfig.*
+import io.infinitic.transport.config.PulsarTransportConfig
+import io.infinitic.workers.InfiniticWorker
+import io.infinitic.workers.config.ServiceTagEngineConfig
 import io.infinitic.workflows.or
+import java.time.Duration
+
 
 class BookingWorkflowImpl: AbstractWorkflow(), BookingWorkflow {
 
@@ -77,4 +85,45 @@ class BookingWorkflowImpl: AbstractWorkflow(), BookingWorkflow {
         // notify traveler of host denial
         dispatch(notificationService::notifyTravelerOfBookingDenial, request)
     }
+}
+
+fun main() {
+    val transport = PulsarTransportConfig.builder()
+        .setBrokerServiceUrl("pulsar://localhost:6650")
+        .setWebServiceUrl("http://localhost:8080")
+        .setTenant("infinitic")
+        .setNamespace("dev")
+
+    val storage: StorageConfigBuilder = MySQLStorageConfig.builder()
+        .setCompression(CompressionConfig.bzip2)
+        .setCache(
+            CaffeineCacheConfig.builder().setExpireAfterWrite(600)
+        )
+        .setHost("localhost")
+        .setPort(3306)
+        .setDatabase("infinitic")
+        .setUsername("root")
+        .setPassword("***")
+
+    val worker = InfiniticWorker.builder()
+        .setTransport(transport)
+        .addServiceTagEngine(
+            ServiceTagEngineConfig.builder()
+                .setServiceName("CarRentalService")
+                .setConcurrency(5)
+                .setStorage(storage)
+        )
+        .addServiceTagEngine(
+            ServiceTagEngineConfig.builder()
+                .setServiceName("FlightBookingService")
+                .setConcurrency(5)
+                .setStorage(storage)
+        )
+        .addServiceTagEngine(
+            ServiceTagEngineConfig.builder()
+                .setServiceName("HotelBookingService")
+                .setConcurrency(5)
+                .setStorage(storage)
+        )
+        .build()
 }

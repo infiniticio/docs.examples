@@ -1,11 +1,12 @@
 package com.acme.workflows.payment.kotlin
 
-import com.acme.services.notification.BookingRequest
-import com.acme.utils.AbstractWorkflow
-import com.acme.workflows.invoicing.User
-import com.acme.workflows.payment.PaymentWorkflow
+import com.acme.contracts.services.notification.BookingRequest
+import com.acme.common.AbstractWorkflow
+import com.acme.contracts.workflows.invoicing.User
+import com.acme.contracts.workflows.payment.PaymentWorkflow
 
-class PaymentWorkflowImpl : AbstractWorkflow(), PaymentWorkflow {
+class PaymentWorkflowImpl : AbstractWorkflow(),
+    PaymentWorkflow {
     override fun getDeposit(request: BookingRequest) {
         log("Request ${request.id}: Running ${::getDeposit.name}" )
     }

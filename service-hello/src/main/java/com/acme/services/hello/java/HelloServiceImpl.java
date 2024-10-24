@@ -1,7 +1,7 @@
 package com.acme.services.hello.java;
 
-import com.acme.services.hello.HelloService;
-import com.acme.utils.AbstractService;
+import com.acme.contracts.services.hello.HelloService;
+import com.acme.common.AbstractService;
 
 public class HelloServiceImpl extends AbstractService implements HelloService {
     @Override
