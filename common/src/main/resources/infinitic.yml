@@ -13,16 +13,18 @@ transport:
 # Storage settings
 storage:
   # inMemory:
-  redis:
+  # postgres:
+  #  host: localhost
+  #  port: 5432
+  #  username: "exampleuser"
+  #  password: "examplepass"
+  mysql:
     host: localhost
-    port: 6379
-  # mysql:
-  # postgres
-  #   host:
-  #   port:
-  #   user:
-  #   password:
-  #   database:
+    port: 3306
+    username: "exampleuser"
+    password: "examplepass"
+    database: "exampledb"
+
 
 # Dashboard Settings
 port: 9080

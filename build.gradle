@@ -19,7 +19,7 @@ subprojects {
 
     dependencies {
         // Infinitic
-        String version = '0.16.1'
+        String version = '0.16.4'
         implementation 'io.infinitic:infinitic-worker:' + version
 
         implementation 'ch.qos.logback:logback-classic:1.4.5'

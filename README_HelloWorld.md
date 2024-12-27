@@ -36,7 +36,7 @@ To be able to run `HelloWorkflow` instances:
 ### Starting Instances
 
 To start ([code](./common/src/test/java/com/acme/clients/hello/Start.java))
-10 `HelloWorkflow` instances, run: `./gradlew common:hello-start --args 10`.
+1000 `HelloWorkflow` instances, run: `./gradlew common:hello-start --args 1000`.
 
 The consoles should look like:
 

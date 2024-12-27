@@ -3,7 +3,16 @@ workflows:
     executor:
       class: com.acme.workflows.hello.kotlin.HelloWorkflowImpl
       concurrency: 10
+      batch:
+        maxMessages: 1000
+        maxSeconds: 0.1
     stateEngine:
       concurrency: 10
+      batch:
+        maxMessages: 1000
+        maxSeconds: 0.1
     tagEngine:
       concurrency: 10
+      batch:
+        maxMessages: 1000
+        maxSeconds: 0.1

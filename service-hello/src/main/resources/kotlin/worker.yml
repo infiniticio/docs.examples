@@ -3,5 +3,8 @@ services:
     executor:
       class: com.acme.services.hello.kotlin.HelloServiceImpl
       concurrency: 10
+      batch:
+        maxMessages: 1000
+        maxSeconds: 0.1
     tagEngine:
       concurrency: 10

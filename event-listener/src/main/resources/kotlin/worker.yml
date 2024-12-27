@@ -1,4 +1,7 @@
 eventListener:
   class: com.acme.events.kotlin.EventListenerImpl
   concurrency: 50
+  batch:
+    maxMessages: 1000
+    maxSeconds: 0.1
 
